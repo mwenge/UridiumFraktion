@@ -1,0 +1,576 @@
+% Don't have blank pages for the PDF version, but
+% make sure content starts on the right hand side for the
+% print version.
+%\ifx\forprint\undefined
+%\documentclass[oneside]{book}                            
+%\else
+\documentclass[twoside,openright]{book}                            
+%\fi
+                                                                        
+%\usepackage[T1]{fontenc}
+%\usepackage{c64pro}
+
+\usepackage{fontspec}   
+\setmainfont{Roboto}[
+  Extension = .ttf ,
+  Path = \string~/.fonts/ ,
+  UprightFont = *-Regular ,
+  BoldFont = *-Bold ,
+  ItalicFont = *-Italic ,
+]
+\setmonofont{JetBrains Mono Regular}
+
+
+% Usage of /href
+\usepackage[hidelinks]{hyperref}
+% Disable decoration
+
+\hypersetup{ pdfauthor={Rob Hogan},                         
+pdftitle={Tempest vs Tempest},                           
+pdfkeywords={Tempest Tempest 2000 Atari 68000 assembly 6502 Llamasoft Jeff Minter Dave Theurer}}
+
+\usepackage[margin=1in]{geometry}                                       
+\setlength\paperwidth{7.5in}                                            
+  \setlength\paperheight{9.25in}                                        
+ \setlength\textwidth{5.2in}                                            
+ \setlength\textheight{7.2in}      
+
+% Math formulas!
+\usepackage{amsmath}
+
+% font declaration and title settings
+\newfontfamily\eurostilefont[LetterSpace=-5]{Eurostile BQ-Regular}
+
+ %Nice header with pages numbers                                         
+\usepackage{fancyhdr}                                                   
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} 
+\lhead[{\eurostilefont\nouppercase\leftmark}]{}
+\rhead[]{\eurostilefont\leftmark}
+
+\newsavebox{\mybox}
+
+%------------- IMGs ------------------
+\usepackage{graphicx}                                                   
+\newcommand{\surface}[1]{%
+\setlength{\fboxsep}{3pt}%
+\setlength{\fboxrule}{0pt}%
+\fbox{\includegraphics[width=\textwidth]{#1}}%
+}%
+\usepackage{graphicx}                                                   
+\newcommand{\img}[1]{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fbox{\includegraphics[width=\textwidth]{\base/illu/img/#1}}%
+}%
+\newcommand{\sbimg}[2]{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fbox{\includegraphics[width=#1\textwidth]{\base/illu/img/#2}}%
+}%
+\newcommand{\draw}[1]{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fbox{\includegraphics[width=\textwidth]{\base/illu/d/#1.png}}%
+}%
+\newcommand{\sbdraw}[2]{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fbox{\includegraphics[width=#1\textwidth]{\base/illu/d/#2.png}}%
+}%
+
+%------------- NO BORDER IMG ------------------
+\usepackage{graphicx}                                                   
+\newcommand{\nbimg}[1]{%
+\includegraphics[width=\textwidth]{\base/illu/img/#1}%
+}%
+\newcommand{\nbdraw}[1]{%
+\includegraphics[width=\textwidth]{\base/illu/d/#1.png}%
+}%
+
+%------------- SCALED IMG ------------------
+\newcommand{\simg}[2]{%
+{\centering\includegraphics[width=#1\textwidth]{\base/illu/img/#2}\par}%
+}%
+\newcommand{\sdraw}[2]{%
+{\centering\includegraphics[width=#1\textwidth]{\base/illu/d/#2.png}\par}%
+}%
+
+
+
+%------------- IMGs ------------------
+
+\newcommand{\red}[1]{%
+{\color{red}#1}%
+}%
+
+%Prevent latex from vertical justifing                                  
+\raggedbottom 
+
+\setlength{\parindent}{0em}                                             
+\setlength{\parskip}{1em}  
+
+%make footnote stick to the bottom of the page                          
+\usepackage[bottom]{footmisc}                                           
+
+\usepackage{subfiles}
+
+% ARRAYS
+%----------------------------
+\usepackage{array}
+\usepackage{booktabs}  
+% Color header row 
+\usepackage[table]{xcolor}
+%----------------------------
+\usepackage{varwidth} %for the varwidth minipage environment
+
+\newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}} %M is for Maximal column
+
+% Used to force figure to now float (with \begin{figure}[H]).
+\usepackage{float}
+
+
+% Create blank page for print version of the book
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+
+% Reduce padding between figure and caption
+\usepackage[justification=centering,labelfont=bf]{caption}
+%\captionsetup{belowskip=-15pt, aboveskip=8pt}
+\captionsetup[lstlisting]{font=footnotesize,labelfont=footnotesize}
+\captionsetup[figure]{font=footnotesize,labelfont=footnotesize}
+\captionsetup[subcaption]{font=footnotesize,labelfont=footnotesize,labelformat=empty}
+
+% Cover is a pdf that is included
+\usepackage{pdfpages}
+
+\usepackage{csquotes}
+\newenvironment{italicquote}{\quote\itshape}{\endquote}
+\SetBlockEnvironment{italicquote}
+
+% quotes
+\usepackage{tcolorbox}
+\usepackage{xparse}
+\NewDocumentEnvironment{q}{m}
+{
+\begin{tcolorbox}[parbox=false, sharp corners,after skip=10pt]%
+}
+{ 
+
+\hspace*{\fill} --- #1\\
+\end{tcolorbox}%
+}
+
+% Help avoiding line overflow
+\emergencystretch 1em
+
+% Use the RicardoALT font for chapter and section titles
+\usepackage{titlesec}
+\usepackage{titling}
+
+% Remove Chapter "chapter" and chapter number
+\titleformat{\chapter}[display]
+  {\huge\eurostilefont}{}{20pt}{\Huge}
+\titleformat*{\section}{\LARGE\eurostilefont}
+\titleformat*{\subsection}{\Large\eurostilefont}
+\renewcommand{\maketitlehooka}{\eurostilefont}
+
+\usepackage{multirow,tabularx} % in the preamble
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% Trivia:
+% For trivia left margin
+\usepackage{scrextend}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Bibliography
+\usepackage[super,square]{natbib}
+\bibliographystyle{unsrt}
+
+% To enable figures at the bottom of page
+\usepackage{dblfloatfix}
+
+\usepackage{fancyvrb}
+
+\definecolor{bg_color}{HTML}{fffFfb}
+
+% Copy part of a file to a temporary file.
+% This function is necessary when listing snippets from our
+% large asm files using \lstinputlisting. It seems that \lstinputlist
+% will parse the entire file up to the position of the snippet each
+% time, making compile performance terrible (many minutes on more than
+% just a dozen snippets). Using this function to copy the part of the
+% file we're interested into a temporary file and using that as the input
+% to \lstinputlisting reduces compile time to seconds again.
+% See https://tex.stackexchange.com/questions/669081/lstinputlisting-always-parses-entire-source-file
+\ExplSyntaxOn
+\NewDocumentCommand \CopyPartialFile {mmmm} {
+\def\fromlines{\numexpr #3 - 1}
+\ior_open:Nn \g_tmpa_ior {#1}
+\iow_open:Nn \g_tmpa_iow {#2}
+\prg_replicate:nn {\fromlines} {
+    \ior_str_get:NN \g_tmpa_ior \l_tmpa_str
+}
+\def\tolines{\numexpr #4 - \fromlines}
+\prg_replicate:nn {\tolines} {
+    \ior_str_get:NN \g_tmpa_ior \l_tmpa_str
+    \iow_now:Nx \g_tmpa_iow {\l_tmpa_str}
+}
+\ior_close:N \g_tmpa_ior
+\iow_close:N \g_tmpa_iow
+}
+\ExplSyntaxOff
+
+% FIXME: change draft to final when producing final version
+% This is necessary because lstinputlisting is really slow.
+\usepackage[final]{listings}
+\lstset{ 
+   backgroundcolor=\color{bg_color},
+   breaklines=true,
+   frame=single,
+   basicstyle=\footnotesize\ttfamily,
+   xleftmargin=9pt,
+   framexleftmargin=5pt,
+   showstringspaces=false,
+   aboveskip=12pt,
+   belowskip=0pt,
+   % Make some parts appear in red.
+   moredelim=**[is][\color{red}]{@}{@},
+}
+
+\lstdefinelanguage
+   [6502]{Assembler}     % add a "x64" dialect of Assembler
+   [x86masm]{Assembler} % based on the "x86masm" dialect
+   % with these extra keywords:
+	 {
+   deletestring=[d]',
+   morekeywords={.BYTE,LDY,LDX,INC,LDA,BEQ,BNE,JSR,DEY,DEX,PHA,PLA,INY,BPL,CPX, %
+									STA,SEC,SBC,BCS,EOR,RTS,SEI,TXA,ASL,TAY,INX,CPY,TAX,RTI,TYA,BRK,.TEXT,
+                  movei,store,load,REGEQU,EQU,.WORD,IFNE,VEC,VCTR,LDAH,LXL,.SBTTL,LSR,BEGIN,CSEND,
+                  RTSL,SCDOT,CSTAT,ICVEC,JSRL,.MACRO,.IF,.IFF,.IIF,.IRPC,.ENDC,.ENDM,.ENDR,
+                  IFCC,IFCS,ORA,SCAL,JSRL,JMPL,SCVEC,STX,MIEND,IFEQ,STY,
+                  movei,store,load,REGEQU,cmpq,jr,jump,movefa,loadb,EQU,MESS,ASCVH,
+                  .include,.incbin,move,swap,bra,move.l,moved.d,bsr,lea,dc,
+                  }
+	 } % etc.
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mRed}{rgb}{0.8,0.0,0.0}
+\definecolor{keyword_color}{rgb}{0,0,1}
+
+
+\lstdefinestyle{6502Style}{
+    backgroundcolor=\color{bg_color},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{keyword_color},
+    numberstyle=\color{mGray},
+    stringstyle=\color{mGreen},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=1,
+    language=[6502]Assembler,
+    morekeywords={call, ld, or, jr,ldr, str,ldir, EI, IM, .area}
+}
+
+\lstdefinelanguage
+   [Jaguar68K]{Assembler}     % add a "x64" dialect of Assembler
+   [Motorola68K]{Assembler} % based on the "x86masm" dialect
+   {}
+
+\lstdefinestyle{68KStyle}{
+    backgroundcolor=\color{bg_color},   
+    commentstyle=\color{mGreen},
+    numberstyle=\color{mRed},
+    stringstyle=\color{mGreen},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=1,
+    language=[Jaguar68K]Assembler,
+    classoffset=0, % Set a blue style for keywords
+    morekeywords={movei,store,load,REGEQU,cmpq,jr,jump,movefa,loadb,EQU,
+                  include,incbin,move,swap,bra,move,moved,bsr,lea,dc,db,
+                  },
+    keywordstyle=\color{keyword_color},
+    classoffset=1, % Set a red style for the register names.
+    morekeywords={r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r30,r31,
+                  a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a15,
+                  d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,d13,d15,d15,
+                  l,b,d,
+                  },
+    keywordstyle=\color{mRed},
+    classoffset=0,
+}
+
+\lstloadlanguages{[6502]Assembler}
+\lstloadlanguages{[Motorola68K]Assembler}
+
+% KANJIS!
+%\usepackage{CJKutf8}
+
+% Inline code
+\usepackage{xcolor}
+\definecolor{code_bg_color}{HTML}{CCCCCC}
+
+% Some color definitions.
+% FIXME: Ensure these definitions match the colors as defined by C64.
+\definecolor{lightgreen}{rgb}{0.56, 0.93, 0.56}
+\definecolor{lightblue}{rgb}{0.68, 0.85, 0.9}
+\definecolor{lightred}{rgb}{1.0, 0.25, 0.25}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{most}
+\newtcbox{\entoure}[1][code_bg_color]{on line,
+arc=3pt,colback=#1!10!code_bg_color,colframe=#1!50!code_bg_color,
+before upper={\rule[-3pt]{0pt}{10pt}},boxrule=0pt,
+boxsep=0pt,left=2pt,right=2pt,top=2pt,bottom=.5pt}
+
+% layer colors
+\definecolor{mycyan}{HTML}{00FFFF}
+\definecolor{mypink}{HTML}{FF00FF}
+\definecolor{myyellow}{HTML}{FFFF00}
+
+\definecolor{mask1}{HTML}{ddcc99}
+\definecolor{mask2}{HTML}{998855}
+\definecolor{mask3}{HTML}{776633}
+\definecolor{mask4}{HTML}{554400}
+
+
+\definecolor{mask5}{HTML}{556677}
+\definecolor{mask6}{HTML}{445566}
+\definecolor{mask7}{HTML}{99aabb}
+\definecolor{mask8}{HTML}{778899}
+
+
+\definecolor{mask9}{HTML}{223344}
+\definecolor{maska}{HTML}{777766}
+\definecolor{maskb}{HTML}{666655}
+\definecolor{maskc}{HTML}{666666}
+
+\definecolor{c64_black}{HTML}{000000}
+\definecolor{c64_white}{HTML}{ffffff}
+\definecolor{c64_red}{HTML}{880000}
+\definecolor{c64_cyan}{HTML} {aaffee}
+\definecolor{c64_violet}{HTML}{cc44cc}
+\definecolor{c64_purple}{HTML}{cc44cc}
+\definecolor{c64_green}{HTML}{00cc55}
+\definecolor{c64_blue}{HTML} {0000aa}
+\definecolor{c64_yellow}{HTML} {eeee77}
+\definecolor{c64_orange}{HTML} {dd8855}
+\definecolor{c64_brown}{HTML}{664400}
+\definecolor{c64_lightred}{HTML}{ff7777}
+\definecolor{c64_ltred}{HTML}{ff7777}
+\definecolor{c64_darkgrey}{HTML}{333333}
+\definecolor{c64_grey}{HTML} {333333}
+\definecolor{c64_grey1}{HTML} {333333}
+\definecolor{c64_grey2}{HTML} {777777}
+\definecolor{c64_darkgray}{HTML}{333333}
+\definecolor{c64_gray}{HTML} {333333}
+\definecolor{c64_gray1}{HTML} {333333}
+\definecolor{c64_gray2}{HTML} {777777}
+\definecolor{c64_lightgreen}{HTML}{aaff66}
+\definecolor{c64_lightblue}{HTML} {0088ff}
+\definecolor{c64_lightgrey}{HTML}{bbbbbb}
+\definecolor{c64_lightgray}{HTML}{bbbbbb}
+\definecolor{c64_ltgreen}{HTML}{aaff66}
+\definecolor{c64_ltblue}{HTML} {0088ff}
+\definecolor{c64_ltgrey}{HTML}{bbbbbb}
+\definecolor{c64_ltgray}{HTML}{bbbbbb}
+\definecolor{c64_grey3}{HTML}{bbbbbb}
+\definecolor{c64_gray3}{HTML}{bbbbbb}
+
+\newcommand*{\icode}[1]{{\texttt{#1}}}
+\newcommand*{\tcode}[1]{{\texttt{\scriptsize#1}}}
+\newcommand*{\bicode}[1]{{\textbf{\texttt{#1}}}}
+
+\newcommand{\smallcube}[2]{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{#1}{#2}{\vphantom{W}\hphantom{H}}%
+}
+
+
+% To categories games
+\newcommand{\ocube}{%
+\smallcube{black}{gray}%
+}
+\newcommand{\platcube}{%
+\smallcube{black}{cyan}%
+}
+
+\newcommand{\beatallcube}{%
+\smallcube{black}{magenta}%
+}
+\newcommand{\shmupcube}{%
+\smallcube{black}{yellow}%
+}
+\newcommand{\duelcube}{%
+\smallcube{black}{black}%
+}
+\newcommand{\po}{%
+\smallcube{white}{white}%
+}
+
+% Place lstlisting inside minipage to avoid page break inside listing
+\lstnewenvironment{code}
+{\minipage{\linewidth}}
+{\endminipage}
+
+\usepackage{adjustbox}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows.meta}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+\usetikzlibrary{positioning,shapes}
+
+
+% Used to strike words with \sout
+% \usepackage[normalem]{ulem}
+
+% Wrap figure
+\usepackage{wrapfig}
+
+\usepackage{amssymb}
+
+% Automagically remove header and footer from empty pages.
+\usepackage{emptypage}
+
+%Index stuff
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index]
+
+%Remove space above itemize
+\usepackage{enumitem}
+
+%For the music sheets.
+\usepackage{abc}
+
+% for mu symbol    
+\usepackage{textcomp}
+\usepackage{upgreek}
+
+% To generate version number!
+\usepackage{datetime}
+\renewcommand{\dateseparator}{, }
+\newdateformat{monthyeardate}{\monthname\dateseparator\THEYEAR}
+
+\usepackage{subcaption}
+
+% For end of book empty page (checkoddpage)
+\usepackage{ifoddpage}
+
+\usepackage{overpic}
+\usepackage{pict2e}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{makecell}
+
+\usepackage[xetex]{attachfile2}
+\usepackage{pdflscape}
+\usepackage[figuresright]{rotating}
+
+\usepackage[
+  type={CC},
+  modifier={by-nc-sa},
+  version={3.0},
+]{doclicense}
+
+\usepackage{mwe}
+\usetikzlibrary{shadows}
+
+\definecolor{boxyellow}{HTML}{000000}
+\mdfdefinestyle{mystyle}{%
+  outerlinewidth = 0.5pt,
+  linecolor = white,
+  tikzsetting = {draw = white, line width = 0.5pt},
+  roundcorner=10pt,
+  topline=true,
+  frametitleaboveskip=1.5\dimexpr-\ht\strutbox\relax,
+}
+
+\newenvironment{definition}[1][]{%
+\ifstrempty{#1}%
+  {\mdfsetup{%
+  style = mystyle,
+  }}%
+  {\mdfsetup{%
+  style = mystyle,
+  frametitle={%
+  \tikz{[baseline=(current bounding box.east),outer sep=0pt]
+  \node[font={\small},draw = white, line width = 0.5pt, text = white, anchor=east,rectangle,
+  fill=boxyellow, rounded corners]
+  {\strut #1};
+  }}}}%
+  \begin{mdframed}[backgroundcolor=boxyellow]\relax%
+}{\end{mdframed}}
+
+\renewcommand{\thechapter}{}
+\usepackage{titlesec}
+
+\newcommand*{\setupTOC}{%
+\titlespacing*{\chapter}{0pt}
+{*7} %  % vertical space before the title <<<<<<<<<<
+{*1}  %  idem after title (in ex units + glue) <<<<<<<<<<<
+}
+
+\begin{document}    
+\ifx\forprint\undefined
+\includepdf{\base/illu/cover_front.pdf}
+\else
+\blankpage
+\fi
+
+\subfile{src/copyright}
+
+\pagestyle{empty} 
+
+\begingroup
+\let\cleardoublepage\clearpage
+\tableofcontents
+\endgroup
+
+% Make page number appear on botton right                               
+\pagestyle{fancy}                                                       
+\fancyfoot{}                                                            
+\fancyfoot[EL]{\thepage}                                                
+\fancyfoot[OR]{\thepage} 
+
+\subfile{src/preface_image}         % draft
+\subfile{src/preface}               % draft
+\subfile{src/manta_spin}                 % tempest
+
+
+%\subfile{src/selftest}             % tempest - placeholder only
+%\subfile{src/reverse}              % t2k: yak using the GPU 'in reverse' the wrong way round.
+%\subfile{src/ai_droid}             % t2k - ai droid
+%\subfile{src/bonus_game}           % t2k - bonus game
+
+%\printindex
+
+% Add these later
+\ifx\forprint\undefined
+   \includepdf{\base/illu/cover_back.pdf}
+\else
+    % Adding the right number of bankpage automatically at the end is tricky.
+    % Doing it manually.
+    %\blankpage
+\fi
+
+\end{document}

@@ -1,0 +1,26 @@
+\chapter{MANTA/SPIN} 
+\label{sec:ships}
+\lstset{style=6502Style}
+
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=11cm,center}
+      \includegraphics[width=12cm]{src/titles/title.png}%
+    \end{adjustbox}
+  \caption{The Tempest Title Rainbow.}
+\end{figure}
+
+\begin{figure}[H]
+  {
+    \setlength{\tabcolsep}{1.0pt}
+    \setlength\cmidrulewidth{\heavyrulewidth} % Make cmidrule = 
+    \begin{adjustbox}{width=4cm,center}
+	\begin{subfigure}{0.3\textwidth}
+    \def\MULTICOLORONE{red}
+    \def\MULTICOLORTWO{white}
+    \def\SPRITECOLOR{blue}
+		\input{ship_sprites/MANTA.tex}
+	\end{subfigure}
+    \end{adjustbox}
+  }\caption{An example of a sprite in Iridis Alpha.}
+\end{figure}

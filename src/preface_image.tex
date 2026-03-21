@@ -1,0 +1,21 @@
+\lhead[]{}
+\rhead[]{}
+\renewcommand{\headrulewidth}{0pt}
+
+% Use this when table of contents ends on recto:
+% \blankpage
+% \clearpage
+%
+% Use this when table of contents ends on verso:
+% \clearpage
+% \blankpage
+
+\ifx\forprint\undefined
+\blankpage
+\clearpage
+\else
+\blankpage
+\blankpage
+\clearpage
+\fi
+
