@@ -1,8 +1,8 @@
 # Uridium Fraktion
 ## Code, Data, Pixels
-[<img align="right" width=40% src="https://github.com/mwenge/UridiumFraktion/raw/master/src/cover/pdf/cover_front.png">](https://raw.githubusercontent.com/mwenge/UridiumFraktion/refs/heads/master/out/UridiumFraktion_release_high_quality.pdf) 
+[<img align="right" width=40% src="https://github.com/mwenge/UridiumFraktion/raw/master/src/cover/pdf/cover_front.png">](https://raw.githubusercontent.com/mwenge/UridiumFraktion/refs/heads/master/out/UridiumFraktion_release.pdf) 
 
-Work-in-progress is [available for free](https://raw.githubusercontent.com/mwenge/UridiumFraktion/refs/heads/master/out/UridiumFraktion_release_high_quality.pdf).
+Work-in-progress is [available for free](https://raw.githubusercontent.com/mwenge/UridiumFraktion/refs/heads/master/out/UridiumFraktion_release.pdf).
 
 You can [gift what you want](https://www.paypal.com/paypalme/hoganrobert).
 
