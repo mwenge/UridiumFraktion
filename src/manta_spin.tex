@@ -153,55 +153,104 @@ loop.
 \end{figure}
 \vspace{-0.6cm}
 
+But this is not a wrinkle the animation needs to worry about. All it needs to do
+is loop across the sprites that constitute the full sequence. It is indifferent to the
+fact that the first frame in RAM is not a manta sitting flush to our point of view.
 
+Let's take a look at how it is implemented in the routine responsible
+for animating the spinning manta. It's thankfully very compact and easy to digest.
+We would expect it to iterate over the sprites from \icode{MANTA\_0} to \icode{MANTA\_15}, which is 
+exactly what it does - as we noted, all that matters to it is that the sprites are ordered
+contiguously in RAM. Selecting the next sprite for preparation (\icode{GetCurrentSprite})
+and display (\icode{DisplaySprite}) is a simple matter of incrementing the index
+\icode{currentSpriteValue} that points to the current sprite until we reach \icode{MANTA\_16}, 
+at which point we reset our \icode{currentSpriteValue} back to \icode{MANTA\_0}.
 
 \begin{lstlisting}
-SpinningShipAnimationLoop
-        JSR CheckInputMaybeUpdateDecal
-        LDA firePressed
-        BEQ SpinningShipAnimationOver
-        LDA someKindOfFrameRate
-        BEQ SpinningShipAnimationOver
-        JSR MaybeShowPauseScreen
-        JSR StoreSpriteContentColorAndPosition
-        INC currentSpriteValue
-        LDA currentSpriteValue
-        CMP #MANTA_16
-        BCC Repeat
-        LDA #MANTA_00
-        STA currentSpriteValue
-Repeat  JSR UpdateSpriteContentAndPosition
-        JMP SpinningShipAnimationLoop
+SpinningShipLoop
+    JSR CheckInput            ; Increment frameCount and check input.
+    LDA firePressed           ; Was 'Fire' pressed?
+    BEQ AnimationOver         ; If so, stop animating ship.
+    LDA frameCount            ; Is the sequence over?
+    BEQ AnimationOver         ; If so, stop animating ship.
+    JSR MaybeShowPauseScreen  ; Check if 'Pause' pressed.
+    JSR GetCurrentSprite      ; Prepare current sprite.
+    INC currentSpriteValue    ; Increment the sprite index.
+    LDA currentSpriteValue    ; Store it in 'A' register.
+    CMP #MANTA_16             ; Is it MANTA_16 yet?
+    BCC Repeat                ; If not, display sprite and loop. 
+    LDA #MANTA_00             ; Otherwise, fetch MANTA_00 ..
+    STA currentSpriteValue    ; .. and store it as current sprite.
+Repeat
+    JSR DisplayCurrentSprite  ; Display our selected sprite.
+    JMP SpinningShipLoop      ; Loop back to top again.
 \end{lstlisting}
+
+% Ensure the figures appear on a page by themselves.
+\afterpage{%
+  \begin{figure}[H]
+      \centering
+      \begin{adjustbox}{width=14cm,center}
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_10.png}%
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_11.png}%
+      \end{adjustbox}
+  \end{figure}
+  \vspace{-0.5cm}
+  \begin{figure}[H]
+      \centering
+      \begin{adjustbox}{width=14cm,center}
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_12.png}%
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_13.png}%
+      \end{adjustbox}
+  \end{figure}
+  \vspace{-0.5cm}
+  \begin{figure}[H]
+      \centering
+      \begin{adjustbox}{width=14cm,center}
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_14.png}%
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_15.png}%
+      \end{adjustbox}
+  \end{figure}
+  \vspace{-0.5cm}
+  \begin{figure}[H]
+      \centering
+      \begin{adjustbox}{width=14cm,center}
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_0.png}%
+        \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_1.png}%
+      \end{adjustbox}
+  \end{figure}
+  \clearpage
+}
+
+But there is one complication we haven't yet accounted for: how does the animation ensure
+that when \icode{frameCount} has reached zero, and the animation is over, that we finish with
+the Manta facing upwards:
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA1.png}}?
+The answer lies in the initial value that we set for \icode{frameCount}. This is \icode{\$BF} or 191
+in decimal: 
+\begin{lstlisting}
+    LDA #$BF         ; Store 191 in the A register.
+    STA frameCount   ; Store it as our frameCount.
+\end{lstlisting}
+A starting value of 191 for \icode{frameCount} gives us 65 keyframes of animation in total until
+we reach 256 and roll around, like a clock, back to zero. With 16 frames for each complete spin of the Manta
+this allows us 4 complete spins (64 frames) with one left over before \icode{frameCount} will roll over to
+zero. It is this left over frame that will push us past \icode{MANTA\_00} -  
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA.png}}
+- and finish at the desired spot of \icode{MANTA\_1} - 
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA1.png}}.
+
+The Manta does not only spin on its axis when travelling from left to right. The effect is also 
+present in the right-to-left direction during the enemy ship's destruction sequence. 
 
 \begin{figure}[H]
     \centering
     \begin{adjustbox}{width=14cm,center}
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_10.png}%
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_11.png}%
+      \includegraphics[width=15cm]{src/manta_spin/manta_spin_left.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.5cm}
-\begin{figure}[H]
-    \centering
-    \begin{adjustbox}{width=14cm,center}
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_12.png}%
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_13.png}%
-    \end{adjustbox}
-\end{figure}
-\vspace{-0.5cm}
-\begin{figure}[H]
-    \centering
-    \begin{adjustbox}{width=14cm,center}
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_14.png}%
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_15.png}%
-    \end{adjustbox}
-\end{figure}
-\vspace{-0.5cm}
-\begin{figure}[H]
-    \centering
-    \begin{adjustbox}{width=14cm,center}
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_0.png}%
-      \includegraphics[width=7cm]{src/manta_diagrams_list/MANTA_1.png}%
-    \end{adjustbox}
-\end{figure}
+
+This effect, along with a number of other Manta maneouvres, is achieved with a more involved use of data structures
+ than has been necessary here. We will save a full description of these for a later chapter.
+
