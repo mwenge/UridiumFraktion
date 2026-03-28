@@ -14,6 +14,16 @@ You can even [sponsor future work](https://github.com/sponsors/mwenge/).
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## A Peek Inside
 These screenshots give you a flavour of what the book looks like. 
