@@ -178,19 +178,19 @@ landingDeckSection
   .BYTE%\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/dropship_sprites/DROPSHIP_6.png}}%       ; Sprite Reference ($06).
 \end{lstlisting}
 
-With the details of each section defined in its own section array, we will now define an array that references each section array. A 'list of lists' if you like.
+With the details of each section defined in its own section array, we will now define an array that references each one. A 'list of lists' if you like.
 \footnote{We actually define and use another as well: \icode{hiPtrsToDropShipSections}. This references the sections in the same order as \icode{loPtrsToDropShipSections}. We combine the entries in these arrays to get the two-byte address in memory where our section, such as \icode{topRightSection}, is located and read its data. This is what you see happening in \icode{DrawDropShip}.
 }
 Taken together, this array tells us the order
-in which to place the sections. This order is important because when we draw one sprite after another it will appear
-'over it', occluding any overlapping area.
+in which to place the sections. This order is important because when we draw one sprite after another each will obscure the one
+before it, occluding any overlapping area.
 
 \begin{lstlisting}[escapechar=\%]
 loPtrsToDropShipSections
   .BYTE <topRightSection,     <topMiddleSection   ; %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_0.png}}% %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_1.png}}%
   .BYTE <topLeftSection,      <bottomRightSection ; %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_2.png}}% %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_3.png}}%
   .BYTE <bottomMiddleSection, <bottomLeftSection  ; %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_4.png}}% %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_5.png}}%
-  .BYTE <landingDeckSection,  <bayDoorSection     ; %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_6.png}}% %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_7.png}}%
+  .BYTE <bayDoorSection,  <landingDeckSection     ;  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_7.png}}% %\raisebox{-0.2\totalheight}{\includegraphics[height=0.31cm]{src/dropship_sprites/DROPSHIP_6.png}}%
 \end{lstlisting}
 
 
@@ -211,7 +211,7 @@ of the array rather than the beginning, and draw each section. This means that t
 later ones. Because the landing deck is at the end of the section array this means that any overlapping parts of the
 deck will be occluded by the section above it, as we would expect if we were looking at in practice.
 
-The illustration below shows how the craft is built up in practice. We start with the landing deck and proceed
+The illustration below shows how the craft is built up by the loop in \icode{DrawDropShip} above. We start with the landing deck and proceed
 clockwise along the whole body of the dropship until it is complete.
 
 \hspace{-1.5cm}
