@@ -217,7 +217,19 @@ This isn't entirely deliberate - the
 color immediately changes back to yellow once the game starts - so it would have to be an either oversight or the result
 of an unavoidable constraint. It happens to be the latter - the color of the detailing is determined by
 a color value shared by all sprites. This isn't a problem during gameplay as the enemies also use this yellow
-color value. However during the dropship sequence this shared color is a dull grey, the shadow tones used to
+color value, for example:.
+
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{center}
+      \includegraphics[width=1cm]{src/manta_sprites/MANTA1.png}%
+      \hspace{0.1cm}
+      \includegraphics[width=1cm]{src/meanie_sprites/MEANIE_09.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+
+However during the dropship sequence this shared color is a dull grey, the shadow tones used to
 give depth to the dropship. As a result, during deployment the Manta must carry gray rather than yellow racing stripes.
 Once the player takes control, however, it can revert immediately to the color it shares with the enemies. On the first 
 level, this is yellow, but this color also changes in the later stages of the game to pink, blue, and so on.

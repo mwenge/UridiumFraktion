@@ -98,9 +98,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1-6-6-0-6"
-       x="-0.0099053291"
+       x="-0.0062400884"
        y="-0.057399571"
-       width="1.0198107"
+       width="1.0124802"
        height="1.1147991"><feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.1018948"
@@ -108,9 +108,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1-6-6-0-6-5"
-       x="-0.00995271"
+       x="-0.011931906"
        y="-0.058944243"
-       width="1.0199054"
+       width="1.0238638"
        height="1.1178885"><feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.1018948"
@@ -118,10 +118,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1-6-6-0-6-5-0"
-       x="-0.0089787439"
-       y="-0.057558266"
-       width="1.0179575"
-       height="1.1151165"><feGaussianBlur
+       x="-0.0070540953"
+       y="-0.057399571"
+       width="1.0141082"
+       height="1.1147991"><feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.1018948"
          id="feGaussianBlur1-7-3-7-1-0-6" /></filter></defs><g
@@ -179,7 +179,7 @@
          sodipodi:role="line"
          id="tspan6"
          x="126.37423"
-         y="217.15536">CODE/</tspan></text><text
+         y="217.15536">OBJECTS/</tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.25;font-family:'Eurostile BQ';-inkscape-font-specification:'Eurostile BQ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-0.918104px;fill:#1a1a1a;fill-opacity:1;stroke:#ececec;stroke-width:0.215581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1-6-6-0-6-5)"
        x="126.80146"
@@ -188,7 +188,7 @@
          sodipodi:role="line"
          id="tspan3"
          x="126.80146"
-         y="224.57007">DATA/</tspan></text><text
+         y="224.57007">AND/</tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.25;font-family:'Eurostile BQ';-inkscape-font-specification:'Eurostile BQ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-0.918104px;fill:#1a1a1a;fill-opacity:1;stroke:#ececec;stroke-width:0.215581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1-6-6-0-6-5-0)"
        x="126.23244"
@@ -197,7 +197,7 @@
          sodipodi:role="line"
          id="tspan4"
          x="126.23244"
-         y="232.18372">PIXELS</tspan></text></g><g
+         y="232.18372">EFFECTS</tspan></text></g><g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2"
