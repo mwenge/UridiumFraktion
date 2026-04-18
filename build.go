@@ -281,6 +281,7 @@ func main() {
     "-sDEVICE=pdfwrite",
     "-dCompatibilityLevel=1.4",
     "-dPDFSETTINGS=/ebook",
+//    "-dColorImageDownsampleType=/Bicubic",
     "-dNOPAUSE",
     "-dQUIET",
     "-dBATCH",
