@@ -1,4 +1,4 @@
-\chapter{SUR/FACES} 
+\chapter{SUR/FACE} 
 \label{sec:baydoor}
 \lstset{style=6502Style}
 
@@ -14,7 +14,7 @@ end result on the left.
 	\vspace{-0.2cm}
 	\begin{figure}[H]
 		\centering
-		\begin{adjustbox}{width=5cm,center}
+		\begin{adjustbox}{width=4.7cm,center}
 			\includegraphics{src/surface_structure_diagrams/6_0D.png}%
 		\end{adjustbox}
 	\end{figure}
@@ -39,7 +39,7 @@ end result on the left.
 \end{minipage}
 
 Notice how we specify 6 vertical strips from left to right, designating the tiles to use for each strip
-working from the bottom up. Pair the tile values in each array with their corresponding
+working from the bottom up. Try to pair the tile values in each array with their corresponding
 positions in the diagram. Hopefully you can see how it works.
 
 If we can define structures in this way, and give each one an index (such as \icode{\$0D} in this
@@ -168,9 +168,9 @@ DrawSurfaceSections
   TAX                          ; Store the byte in X.
   ; Use the byte to point to the section data.
   LDA surfaceStructureDataHiPtrArray,X  ; Get the High Byte of the section.
-  STA srcHiPtr                          ; Store it.
+  STA sectionDataHiPtr         ; Store it.
   LDA surfaceStructureDataLoPtrArray,X  ; Get the Low Byte of the section.
-  STA sectionDataLoPtr                          ; Store it.
+  STA sectionDataLoPtr         ; Store it.
   ; Move our pointer to next byte in dreadnought data, for next time around.
   LDA dreadnoughtDataLoPtr     ; Get the current pointer.
   ADC #$01                     ; Increment it.
@@ -214,16 +214,16 @@ BlankSpacesLoop
 
   ; Do the next strip and/or the next section until we're done.
 GoToNextStrip   
-  LDA currentLevelSurfaceLoPtr ; Get position of current strip on dreadnought.
-  ADC #$01                     ; Increment by one in order to draw ..
-  STA currentLevelSurfaceLoPtr ; .. the next strip in the next position to the right.
-  LDA currentLevelSurfaceHiPtr ; Get the 'end' of the dreadnought.
-  CMP #>endOfSurfaceData       ; Have we reached it yet?
-  BCS ReadPlacedStructures     ; If so, we've finished drawing the surface section.
-  DEC numberOfStrips           ; Otherwise, do the next strip in the section.
-  BNE DrawSectionStrip         ; Keep looping until all strips in the section are done.
+  LDA levelSurfaceLoPtr      ; Get position of current strip on dreadnought.
+  ADC #$01                   ; Increment by one in order to draw ..
+  STA levelSurfaceLoPtr      ; .. the next strip in the next position to the right.
+  LDA levelSurfaceHiPtr      ; Get the 'end' of the dreadnought.
+  CMP #>endOfSurfaceData     ; Have we reached it yet?
+  BCS DrawPlacedStructures   ; If so, we've finished drawing the surface section.
+  DEC numberOfStrips         ; Otherwise, do the next strip in the section.
+  BNE DrawSectionStrip       ; Keep looping until all strips in the section are done.
 
-  BEQ DrawSurfaceSections      ; Keep looping until all sections are done.
+  BEQ DrawSurfaceSections    ; Keep looping until all sections are done.
 \end{lstlisting}
 \clearpage
 
@@ -291,7 +291,27 @@ But for some the first pass gives us something much closer to the finished produ
     \end{adjustbox}
 \end{figure}
 
-Our next step is to see how we go about the finishing phase required to create a completed dreadnought. How
+We get a hint for why this might be when we compare the two phases of drawing Level 13 (\textit{Ergonite}):
+
+\begin{figure}[H]
+    \begin{adjustbox}{width=14cm,center}
+      \includegraphics{src/surfaces_raw_surface_only/13.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.6cm}
+\begin{figure}[H]
+    \begin{adjustbox}{width=14cm,center}
+      \includegraphics{src/surfaces_raw/13.png}%
+    \end{adjustbox}
+\end{figure}
+
+Two of the ship-like structures are present in the first pass rather than being added in the second. Why would
+this be? If we look attentively we can see the answer: all sections added in the first pass begin at the bottom
+of the 'screen'. They have a fixed vertical position. So when we have a section that we will paint all the way to the bottom
+we can include it in this first pass but if we want to place it elsewhere, further up the screen, we must
+do so in the second pass.
+
+Our next step is to find out more about this second pass and see how we go about the finishing phase required to create a completed dreadnought. How
 we place the various detailed structures along the surface of the dreadnought to make it something worthy
 of destruction.
 
