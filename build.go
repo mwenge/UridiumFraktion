@@ -274,6 +274,7 @@ func main() {
   var high_quality =  outputDirName + "/" + currentDir() + "_" + getMode() + "_high_quality.pdf"
   os.Rename(src, high_quality)
 
+  /*
   var low_quality =  outputDirName + "/" + currentDir() + "_" + getMode() + "_low_quality.pdf"
   // Trim the final PDF.
   bin = "gs"
@@ -299,5 +300,6 @@ func main() {
   // Rename the light PDF.
   var release_quality =  outputDirName + "/" + currentDir() + "_" + getMode() + ".pdf"
   os.Rename(low_quality, release_quality)
+  */
 
 }
