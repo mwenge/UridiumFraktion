@@ -197,7 +197,7 @@ There are bevelled squares of different sorts:
 \hspace{0.2cm}
 \raisebox{-0.1\totalheight}{\includegraphics[height=3cm]{src/surface_structure_diagrams/6_52_no_text.png}}
 
-We find these elements scattered around the surface, for example the air deck rich in static aircraft (\icode{\$19}) waiting to be shot:
+We find these elements scattered around the surface, for example the air deck, rich in static aircraft (\icode{\$19}) waiting to be shot:
 
 \begin{figure}[H]
     \begin{adjustbox}{width=14.2cm,left}
@@ -205,24 +205,36 @@ We find these elements scattered around the surface, for example the air deck ri
     \end{adjustbox}
 \end{figure}
 
+To better understand the order in which the structures are drawn across the initially naked surface of the
+dreadnought, we can take a look at the incremental progress observed in the 'Gold' level. We start with a completely
+bare deck, containing no features, and even with some bow and stern sections missing:
+
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}
       \includegraphics{src/surfaces_raw_surface_only/6.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.6cm}
+
+We notice that the first structures to be inserted complete the bow and stern detailing of the deck.
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}
       \includegraphics{src/surfaces_raw/6_progress_20.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.6cm}
+
+Once those are in place, we see surface features in the bow section being added:
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}
       \includegraphics{src/surfaces_raw/6_progress_40.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.6cm}
+
+The remaining structures are then added more or less in the order in which they appear on the surface, from 
+left to right.
+
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}
       \includegraphics{src/surfaces_raw/6_progress_60.png}%
@@ -253,11 +265,20 @@ We find these elements scattered around the surface, for example the air deck ri
     \end{adjustbox}
 \end{figure}
 \vspace{-0.6cm}
+
+Finally the entire dreadnought is complete. 
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}
       \includegraphics{src/surfaces_raw/6.png}%
     \end{adjustbox}
 \end{figure}
+\vspace{-0.6cm}
+With this in mind, we can take our time reading the routine
+that performs this activity at our leisure. We observe how the inner loop \icode{DrawStructure} is responsible
+for consuming and rendering the data for each specified structure, while the outer loop \icode{DrawPlaceStructures}
+manages the business of reading in the list of structures to render. Notice how at the start we read in the address
+for placing the structure and then the index of the structure data that we must use. These are the three bytes we mentioned
+earlier that each consitute a single entry in the full list of structures for placement on the surface of the dreadnought. 
 
 \clearpage
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
@@ -294,7 +315,7 @@ DrawPlacedStructures
   STA numberOfStrips           ; Store the number of strips.
 
   ; Draw each strip of the structure.
-DrawStructureStrip   
+DrawStructure   
   LDA (sectionDataLoPtr),Y     ; Read in the length of the strip.
   INY                          ; Move index to next position.
   TAX                          ; Store the length in X.
@@ -318,7 +339,7 @@ Continue
   ADC #$01                     ; Increment by one in order to draw ..
   STA levelSurfaceLoPtr        ; .. the next strip in the next position to the right.
   DEC numberOfStrips           ; Otherwise, do the next strip in the section.
-  BNE DrawStructureStrip       ; Keep looping until all strips in the section are done.
+  BNE DrawStructure       ; Keep looping until all strips in the section are done.
 
   ; Go to the next substructure.
   LDY #$00                     ; Set Y to 0.

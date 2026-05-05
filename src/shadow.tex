@@ -66,42 +66,72 @@ DrawMantaAnimationFrame
 
 An alert player will notice that the shadow is clipped (as we would expect) when the Manta
 is over the dreadnought's edge. Somehow, when we draw the shadow in this instance, the
-shadow sprite is not drawn 'over' the background, but underneath it.
+shadow sprite is not drawn 'over' the background, but is 'underneath' it, or perhaps not
+drawn at all.
 \begin{figure}[H]
     \begin{adjustbox}{width=13.2cm,left}
       \includegraphics{src/shadow/level9_clipped.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
-How is this achieved we might wonder?
+How is this achieved we might wonder? The answer lies in a rule which the C64 will apply to
+sprites that are configured to display 'behind a backgound'. A background in this case is any
+character on the screen where the pixel pair begins with a 1. Since our background, which is the
+inky blackness of space, is rendered using a pair of \icode{1} bits (character \icode{\$20}) as illustrated
+in the diagram below, any sprite we configure
+this way will get hidden behind the background rather than displayed above it. 
 
-\begin{wrapfigure}[8]{r}{6cm} % <==========================================
-      \vspace{-0.4cm}
+\begin{wrapfigure}[9]{r}{6cm}
+    \vspace{-0.2cm}
     \begin{adjustbox}{width=6cm,left}
-      \includegraphics{src/character_set_diagrams/1_20.png}%
+      \includegraphics{src/character_set_diagrams/9_20.png}%
     \end{adjustbox}
 \end{wrapfigure}
 
-\lipsum
+This configuration bit, which is in register \icode{\$D01B}, is set only on the sprite used to display the shadow. 
+The sprites used for everything else: the manta, its
+bullets, and the meanies we spend most of time our shooting at do not have this bit set so will always
+display above the background, as expected. Through careful selection of initial values for the background we've
+avoided the need for any elaborate trickery and achieved a neat little effect that reinforces the illusion of depth.
 
+The final noteworthy use of the shadow is when the Manta is landing on the dreadnought's deck at the end of 
+each level. We want to create the illusion of the Manta lowering onto the surface. Strictly speaking, this would require
+us to make the Manta gradually smaller as it moves further away from the perspective of the player onto the deck. There is
+no need for this kind of complexity though. Instead, it will suffice to use the shadow to achieve the desired effect. We have
+already seen how \icode{mantaShadowOffset} is used to calculate the horizontal and vertical position of the shadow in relation
+to the Manta. If we gradually reduce this offset from its initial value of \icode{19} to some lower value, and recalculate the
+position of the shadow at each turn, we can create the impression that the player's ship is slowly lowering to the surface.
+
+The code that implements this is compact enough to reproduce in full. It is a tight loop that updates and displays
+the Manta and its shadow at each turn. We use a frame rate variable to limit the speed at which the Manta is lowered
+onto the deck. When we are ready to lower another notch we decrement \icode{mantaShadowOffset} once more and keep looping
+until the offset has reached a value of \icode{6}.
 \begin{lstlisting}
-        ; Ship landing loop
-LandingLoop   
-        JSR ProcessGameFrame
-        JSR AnimateMantaShip
-        JSR UpdateSpriteAndRunFunctionPerSprite
-        LDA referenceTo07
-        STA buttonPressDebounce
-        LDA rightwardVelocity
-        BEQ b1437
-        BNE b143B
-b1437   LDA #$00
-        STA fakeRightPressed
-b143B   LDA someKindOfFrameRate
-        AND #$03
-        BNE LandingLoop
-        DEC mantaShadowOffset
-        LDA mantaShadowOffset
-        CMP #$05
-        BCS LandingLoop
+MantaLandingLoop   
+  JSR ProcessGameFrame    ; Process a frame of game time.
+  JSR AnimateMantaShip    ; Update the Manta.
+  JSR UpdateSprites       ; Update the other sprites.
+  LDA frameRate           ; Check the frames rendered.
+  AND #$03                ; If less then 7 ..
+  BNE MantaLandingLoop    ; .. then display again.
+  DEC mantaShadowOffset   ; Decrement the shadow offset.
+  LDA mantaShadowOffset   ; Check the new value of the offset..
+  CMP #$05                ; If it's greater than 5..
+  BCS MantaLandingLoop    ; .. then move the shadow.
 \end{lstlisting}
+
+If we set out the appearance of the manta and its shadow at each iteration of this loop, along with the value of 
+\icode{mantaShadowOffset}, we can see how the effect is achieved. One thing worth noting is that decrementing
+\icode{mantaShadowOffset} results in sort of lockstep progress where the shadow moves first left and then up. This
+is because the vertical position is calculated by dividing \icode{mantaShadowOffset} by 2: for odd values of
+\icode{mantaShadowOffset} this will result in a clamped value that is the same as the previous even value of
+\icode{mantaShadowOffset}.
+\begin{figure}[H]
+    \begin{adjustbox}{width=13.2cm,left}
+      \includegraphics{src/shadow/landing_sequence.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+
+
+
