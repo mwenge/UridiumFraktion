@@ -273,10 +273,10 @@ Finally the entire dreadnought is complete.
     \end{adjustbox}
 \end{figure}
 \vspace{-0.6cm}
-With this in mind, we can take our time reading the routine
-that performs this activity at our leisure. We observe how the inner loop \icode{DrawStructure} is responsible
-for consuming and rendering the data for each specified structure, while the outer loop \icode{DrawPlaceStructures}
-manages the business of reading in the list of structures to render. Notice how at the start we read in the address
+With this in mind, we can take some time to carefully read the routine (opposite)
+that performs this activity. We observe how the inner loop \icode{DrawStructure} is responsible
+for consuming and rendering the data for each specified structure, while the outer loop \icode{DrawPlacedStructures}
+manages the business of reading in the list of structures to render. Notice how at the start we read in the byte-pair address
 for placing the structure and then the index of the structure data that we must use. These are the three bytes we mentioned
 earlier that each consitute a single entry in the full list of structures for placement on the surface of the dreadnought. 
 
