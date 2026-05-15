@@ -1,4 +1,4 @@
-\chapter{SHA/DOW} 
+\chapter{SHADOW/MANTA} 
 \label{sec:shadow}
 \lstset{style=6502Style}
 
@@ -8,7 +8,7 @@
       \includegraphics{src/shadow/shadow.png}%
     \end{adjustbox}
 \end{wrapfigure}
-Like the structure's that litter the surface of the dreadnought, the player's manta ship
+Like the structures that litter the surface of the dreadnought, the player's manta ship
 casts a shadow below it. While it is a simple effect, it is an important one for creating
 the impression of depth and solidity during gameplay. Careful attention has been paid
 to the positioning of the shadow. Observe below how it is consistent with the shadows cast
@@ -23,14 +23,15 @@ of the screen, at an angle of approximately 45 degrees.
 \vspace{-0.4cm}
 
 The exact positioning of the shadow is 7 pixels down and 14 pixels to the right. Notice how 
-shadows of the structures on the dreadnought obey the same down by 1 and over by 2 formula: 
+shadows of the structures on the dreadnought obey the same down by 1 and over by 2 formula, so
+that the light source is consistent for both. 
 \begin{figure}[H]
     \begin{adjustbox}{width=13.2cm,left}
       \includegraphics{src/shadow/level7.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
-This effect is drawn rather economonically inside a clause called \icode{DrawManta\-AnimationFrame}
+This manta's shadow is drawn rather economically inside a clause called \icode{DrawManta\-AnimationFrame}
 nested inside the routine for animating the Manta ship. The procedure consists of drawing the Manta
 ship first, followed by drawing the shadow at an X and Y offset to the ship's position given by
 \icode{mantaShadowOffset}. The Y offset is obtained by dividing \icode{mantaShadowOffset} by 2. No division
@@ -89,15 +90,15 @@ this way will get hidden behind the background rather than displayed above it.
 \end{wrapfigure}
 
 This configuration bit, which is in register \icode{\$D01B}, is set only on the sprite used to display the shadow. 
-The sprites used for everything else: the manta, its
-bullets, and the meanies we spend most of time our shooting at do not have this bit set so will always
+The sprites used for everything else: the manta
+and the meanies we spend most of time our shooting at do not have this bit set so will always
 display above the background, as expected. Through careful selection of initial values for the background we've
 avoided the need for any elaborate trickery and achieved a neat little effect that reinforces the illusion of depth.
 
 The final noteworthy use of the shadow is when the Manta is landing on the dreadnought's deck at the end of 
 each level. We want to create the illusion of the Manta lowering onto the surface. Strictly speaking, this would require
 us to make the Manta gradually smaller as it moves further away from the perspective of the player onto the deck. There is
-no need for this kind of complexity though. Instead, it will suffice to use the shadow to achieve the desired effect. We have
+no need for this kind of complexity though. Instead, it will suffice to use movement of the shadow to achieve the desired effect. We have
 already seen how \icode{mantaShadowOffset} is used to calculate the horizontal and vertical position of the shadow in relation
 to the Manta. If we gradually reduce this offset from its initial value of \icode{19} to some lower value, and recalculate the
 position of the shadow at each turn, we can create the impression that the player's ship is slowly lowering to the surface.
@@ -127,8 +128,8 @@ is because the vertical position is calculated by dividing \icode{mantaShadowOff
 \icode{mantaShadowOffset} this will result in a clamped value that is the same as the previous even value of
 \icode{mantaShadowOffset}.
 \begin{figure}[H]
-    \begin{adjustbox}{width=13.2cm,left}
-      \includegraphics{src/shadow/landing_sequence.png}%
+    \begin{adjustbox}{width=11cm,center}
+      \includegraphics{src/shadow/landing_sequence_large.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
