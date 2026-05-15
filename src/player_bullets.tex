@@ -129,7 +129,7 @@ features of the dreadnought's surface.
 
 \begin{figure}[H]
     \begin{adjustbox}{width=13.2cm,left}
-      \includegraphics{src/bullets_player/level1_characters_bullet_progress_64.png}%
+      \includegraphics{src/bullets_player/level1_characters2_bullet_progress_64.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
@@ -224,4 +224,58 @@ GoToNextCharacter
   INC structureRAMHiPtr      ; Adjust the RAM Pointer to..
   INC structureRAMHiPtr      ; .. point to the next row.
   JMP DestroyStructureLoop   ; And 'destroy' the next row until done.
+\end{lstlisting}
+
+The way we handle structures that block a bullet is even more straightforward. We noticed above
+that we call \icode{BulletBlocked} when the we overlap a character with a value between \icode{\$80} and
+\icode{\$8F}.
+
+\begin{figure}[H]
+    \begin{adjustbox}{width=13.2cm,left}
+      \includegraphics{src/bullets_player/level5_bullet_blocked.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+
+
+\begin{wrapfigure}[9]{l}{2cm} % <==========================================
+\begin{minipage}[l]{1.0\linewidth}
+  \vspace{-0.8cm}
+\begin{figure}[H]
+    \centering
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_80.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_82.png}}\\
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_83.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_85.png}}\\
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_86.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[width=0.8cm]{src/character_mini_diagrams/5_88.png}}\\
+\end{figure}
+\end{minipage}
+\end{wrapfigure}
+
+It is no surprise then to find the values between \icode{\$80} and \icode{\$88} used to define the chequered kiosks littered
+across the surface of most dreadnoughts. These kill our ship when we bump into them and also swallow up
+any bullets we fire at them.
+This range still leaves room to define
+other obstructions that will block and swallow our bullets. We find these in the antennae that appear
+on many levels, usually resting inconspicously in our path where we least expect them. These use the
+values \icode{\$8D}, \icode{\$8E}, and \icode{\$8F}. Notice that their shadows, like those
+of the kiosks, are permeable, using ranges outside the \icode{\$80} - \icode{\$8F} range.
+
+\begin{figure}[H]
+    \begin{adjustbox}{width=13.2cm,left}
+      \includegraphics{src/bullets_player/level5_bullet_blocked_2.png}%
+    \end{adjustbox}
+\end{figure}
+
+Dealing with a blocked bullet is as simple as clearing it out of the array we use to manage the
+state of the six bullets thar active at any given time. This array is called \icode{playerBulletSlotArray}.
+Writing a \icode{00} to the bullet's position in the array has the immediate effect of killing it off
+and creating a slot for a new bullet for the player to fire.
+
+\begin{lstlisting}
+BulletBlocked
+  LDA #$00                    ; Load 0 to A register.
+  STA playerBulletSlotArray,X ; Use it to clear the current bullet.
+  BEQ GoToNextPlayerBullet    ; Process the next bullet.
 \end{lstlisting}
