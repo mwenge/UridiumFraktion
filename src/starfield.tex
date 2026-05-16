@@ -1,0 +1,64 @@
+\chapter{PAR/ALLAX} 
+\label{sec:parallax}
+\lstset{style=6502Style}
+
+\vspace{-3.0cm}
+\begin{figure}[H]
+    \hspace{2cm}
+    \begin{adjustbox}{width=9cm,center}
+      \includegraphics{src/bullets_player/bullets.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{center}
+      \includegraphics[width=6cm]{src/character_set_diagrams/1_42.png}%
+      \hspace{0.2cm}
+      \includegraphics[width=6cm]{src/character_set_diagrams/1_43.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+
+\begin{lstlisting}
+GenerateStarfield
+        LDX #<SCREEN_RAM_HIBANK + $00A0
+        LDY #>SCREEN_RAM_HIBANK + $00A0
+        STX ramLoPtr
+        STY ramHiPtr
+
+        LDA #$30
+        STA dataIndex
+        JSR WriteStarsToScreen
+
+        CLC
+        LDA ramLoPtr
+        ADC #$28
+        STA ramLoPtr
+        BCC b254C
+        INC ramHiPtr
+b254C   JSR WriteStarsToScreen
+
+        LDX #<SCREEN_RAM_HIBANK + $0398
+        LDY #>SCREEN_RAM_HIBANK + $0398
+        STX ramLoPtr
+        STY ramHiPtr
+        JSR WriteStarsToScreen
+
+        CLC
+        LDA ramLoPtr
+        ADC #$28
+        STA ramLoPtr
+        BCC b2565
+        INC ramHiPtr
+b2565   JSR WriteStarsToScreen
+
+        LDY #$05
+        LDA #$20
+b256C   STA SCREEN_RAM_HIBANK + $03AC,Y
+        STA SCREEN_RAM_HIBANK + $03D4,Y
+        DEY
+        BPL b256C
+        RTS
+\end{lstlisting}
