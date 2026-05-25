@@ -231,7 +231,6 @@ AddStarsLoop
 SkipStar
   DEX                       ; Go the next star.
   BPL AddStarsLoop          ; Keep going until X reaches zero.
-  RTS                       ; Return when we're done.
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -240,3 +239,115 @@ SkipStar
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
+
+There is one final twist in \icode{AddStarsBehindDreadnought}. As the dreadnought scrolls
+across the screen, one pixel at a time, we will end up with a very unfortunate artefact if
+we don't take some remedial action. The sequence below gives you an idea of the problem. As the
+segment of the surface in the diagram below moves to the left one pixel at a time, the star moves along with it. 
+This is not how the stars should behave at all - they should remain fixed in their position.
+
+\begin{figure}[H]
+    \centering
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought0.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought1.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought2.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought3.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought4.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought5.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought6.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_moving_with_dreadnought7.png}}
+\end{figure}
+\vspace{-0.4cm}
+
+This unintended side-effect is because the hardware feature used to achieve pixel-grained scrolling will move the entire contents of the
+screen, including the stars. The end result is that the stars appear to be spinning rapidly in a tight little orbit
+as they move from right to left and around again within their single character boundary. Instead of the above, what
+we actually want to happen is this.
+
+\begin{figure}[H]
+    \centering
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought0.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought1.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought2.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought3.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought4.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought5.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought6.png}}
+\hspace{0.1cm}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.0cm]{src/starfield/star_not_moving_with_dreadnought7.png}}
+\end{figure}
+\vspace{-0.4cm}
+
+While the surface of the dreadnought moves, we keep the star rooted to its spot. The solution that achieves this requirement
+is ingenious in its way. What we will do is update the definition of our stars to move the white dot around within
+it, using the number of pixels that the hardware scroll is using to determine how far to move it. The diagrams
+below give us an idea of how this might be achieved. We update the byte response for defining the star with a
+value that has the effect of moving it along the horizontal.
+
+\begin{figure}[H]
+    \centering
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_0.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_1.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_2.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_3.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_4.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_5.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_6.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_SMALL_STAR_7.png}}
+\end{figure}
+\vspace{-0.4cm}
+
+Armed with this idea we can then create an array of the required values, which we will call
+\icode{parallaxOffsetsForStars}.
+\begin{lstlisting}
+parallaxOffsetsForStars .BYTE $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F
+\end{lstlisting}
+
+Once we have the number of pixels that the C64's hardware will scroll by (stored in \icode{pixelsToScroll}) 
+we can use it to select a value from this array and write it to the character definition. We do this
+as follows, updating the byte in the character definition to move the position of the star according to the
+value in \icode{pixelsToScroll}.
+\begin{lstlisting}
+  LDX pixelsToScroll
+  LDA parallaxOffsetsForStars,X
+  STA smallStarXPosition
+\end{lstlisting}
+
+This will have the desired effect for the small star: ensuring that it remains in a fixed position while the rest of the 
+surface moves along in front of it. To perform the same effect for the larger star it is just a question
+of applying the same updates at the appropriate positions in the definition.
+
+\begin{lstlisting}
+        STA bigStarTopXPosition
+        STA bigStarBottomXPosition
+\end{lstlisting}
+
+Again, we visualize these updates below, giving us a star that maintains its parallax with the viewer by
+staying is position relative to the player's perspective while the dreadnought scrolls above it.
+
+\begin{figure}[H]
+    \centering
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_0.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_1.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_2.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_3.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_4.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_5.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_6.png}}
+\raisebox{-0.3\totalheight}{\includegraphics[height=2.1cm]{src/starfield/BASIC_BIG_STAR_7.png}}
+\end{figure}
+\vspace{-0.4cm}
+
