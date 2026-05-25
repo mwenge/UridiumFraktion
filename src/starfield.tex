@@ -243,7 +243,7 @@ SkipStar
 There is one final twist in \icode{AddStarsBehindDreadnought}. As the dreadnought scrolls
 across the screen, one pixel at a time, we will end up with a very unfortunate artefact if
 we don't take some remedial action. The sequence below gives you an idea of the problem. As the
-segment of the surface in the diagram below moves to the left one pixel at a time, the star moves along with it. 
+segment of the surface in the diagram below moves to the right one pixel at a time, the star moves along with it. 
 This is not how the stars should behave at all - they should remain fixed in their position.
 
 \begin{figure}[H]
@@ -292,10 +292,10 @@ we actually want to happen is this.
 \vspace{-0.4cm}
 
 While the surface of the dreadnought moves, we keep the star rooted to its spot. The solution that achieves this requirement
-is ingenious in its way. What we will do is update the definition of our stars to move the white dot around within
-it, using the number of pixels that the hardware scroll is using to determine how far to move it. The diagrams
-below give us an idea of how this might be achieved. We update the byte response for defining the star with a
-value that has the effect of moving it along the horizontal.
+is ingenious in its way. What we will do is update the definition of our stars to move the white dot one pixel
+to the left for every pixel that the dreadnought moves to the right, using the number of pixels calculated for hardware scroll to determine how far to move it. The diagrams
+below give us an idea of how this might be achieved. We update the byte responsible for defining the star with a
+value that has the effect of moving it to the left along the horizontal.
 
 \begin{figure}[H]
     \centering
@@ -326,8 +326,9 @@ value in \icode{pixelsToScroll}.
   STA smallStarXPosition
 \end{lstlisting}
 
-This will have the desired effect for the small star: ensuring that it remains in a fixed position while the rest of the 
-surface moves along in front of it. To perform the same effect for the larger star it is just a question
+This will have the desired effect for the small star: moving it to the left as the dreadnought moves to the right
+(and vice versa) ensuring that it remains in a fixed position while the rest of the 
+surface appears to move along above it. To perform the same effect for the larger star it is just a question
 of applying the same updates at the appropriate positions in the definition.
 
 \begin{lstlisting}
