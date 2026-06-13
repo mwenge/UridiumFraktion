@@ -293,9 +293,39 @@ we actually want to happen is this.
 
 While the surface of the dreadnought moves, we keep the star rooted to its spot. The solution that achieves this requirement
 is ingenious in its way. What we will do is update the definition of our stars to move the white dot one pixel
-to the left for every pixel that the dreadnought moves to the right, using the number of pixels calculated for hardware scroll to determine how far to move it. The diagrams
-below give us an idea of how this might be achieved. We update the byte responsible for defining the star with a
-value that has the effect of moving it to the left along the horizontal.
+to the left for every pixel that the dreadnought will move to the right. We can see two examples of this below.
+
+In the first, we plan to scroll three pixels to the right so we update the star's initial position three pixels to the left.
+In the second we will scroll five pixels, so we again update the star with an initial position five pixels to the left. In both cases,
+the star ends up in the same position after scrolling, on the extreme right of the character boundary. In other 
+words, it will always appear to stay in a fixed position while the surface above it appears to move!
+
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{center}
+      \includegraphics[width=1.0cm]{src/starfield/not_moving_with_dreadnought3_before.png}%
+      \hspace{0.5cm}
+      \raisebox{1.8\totalheight}{\includegraphics[height=0.6cm]{src/baydoor_sprites/arrow.png}}
+      \hspace{0.3cm}
+      \includegraphics[width=1.0cm]{src/starfield/not_moving_with_dreadnought3_after.png}%
+      \hspace{3.2cm}
+      \includegraphics[width=1.0cm]{src/starfield/not_moving_with_dreadnought5_before.png}%
+      \hspace{0.5cm}
+      \raisebox{1.8\totalheight}{\includegraphics[height=0.6cm]{src/baydoor_sprites/arrow.png}}
+      \hspace{0.3cm}
+      \includegraphics[width=1.0cm]{src/starfield/not_moving_with_dreadnought5_after.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+
+Armed with this idea we can create an array of the required values for all eight possible scroll values, which we will call
+\icode{parallaxOffsetsForStars}.
+\begin{lstlisting}
+parallaxOffsetsForStars .BYTE $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F
+\end{lstlisting}
+
+We can see the meaning for these values if we visualize them when they are applied to the character
+definition of the star below.
 
 \begin{figure}[H]
     \centering
@@ -310,34 +340,37 @@ value that has the effect of moving it to the left along the horizontal.
 \end{figure}
 \vspace{-0.4cm}
 
-Armed with this idea we can then create an array of the required values, which we will call
-\icode{parallaxOffsetsForStars}.
+
+With this in hand, all we need is the number of pixels that the C64's hardware will scroll. 
+We can then use that number to select a value from this array and write it to the character definition. Notice that the array
+is designed in such a way that the number of pixels to scroll will select the appropriate update to
+the star. For example, if we are scrolling by five pixels, using \icode{5} as our index
+into \icode{parallaxOffsetsForStars} will pick an update for the star that will offset it five pixels to 
+the left.
+
+The code below performs this relatively straightforward task, updating the byte in the character definition to move the position of the star according to the
+value in \icode{pixelsToScroll}. (We will see how the value in \icode{pixelsToScroll} is calculated in the next chapter).
 \begin{lstlisting}
-parallaxOffsetsForStars .BYTE $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F
+  LDX pixelsToScroll            ; Load pixels to scroll to X.
+  LDA parallaxOffsetsForStars,X ; Use it to select our value. 
+  STA smallStarXPosition        ; Update the character definition.
 \end{lstlisting}
 
-Once we have the number of pixels that the C64's hardware will scroll by (stored in \icode{pixelsToScroll}) 
-we can use it to select a value from this array and write it to the character definition. We do this
-as follows, updating the byte in the character definition to move the position of the star according to the
-value in \icode{pixelsToScroll}.
-\begin{lstlisting}
-  LDX pixelsToScroll
-  LDA parallaxOffsetsForStars,X
-  STA smallStarXPosition
-\end{lstlisting}
+This will have the desired effect for the small star: moving it to the left the desired number of pixels
+before it is ultimately moved back into its 'fixed' position after scrolling. Notice that if the number of
+pixels to scroll is 'zero', i.e. we are not performing any pixel-grained scrolling at all, we will select the first
+element in the \icode{pixelsToScroll} array, which is the default, desired position of the star on the extreme
+right of the character boundary.
 
-This will have the desired effect for the small star: moving it to the left as the dreadnought moves to the right
-(and vice versa) ensuring that it remains in a fixed position while the rest of the 
-surface appears to move along above it. To perform the same effect for the larger star it is just a question
-of applying the same updates at the appropriate positions in the definition.
+To perform the same effect for the larger star it is just a question of applying the same updates at the appropriate positions in the definition.
 
 \begin{lstlisting}
-        STA bigStarTopXPosition
-        STA bigStarBottomXPosition
+  STA bigStarTopXPosition      ; Update the big star character definition.
+  STA bigStarBottomXPosition   ; Update the big star character definition.
 \end{lstlisting}
 
-Again, we visualize these updates below, giving us a star that maintains its parallax with the viewer by
-staying is position relative to the player's perspective while the dreadnought scrolls above it.
+Again, we can visualize these updates below. The values and the method are the same, we just repeat them
+to create an elongated star consisting of two stacked pixels.
 
 \begin{figure}[H]
     \centering
