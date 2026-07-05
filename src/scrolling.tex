@@ -397,6 +397,10 @@ out the address of the section of the playfield to display.
 ; routine is on the following page.
 ;---------------------------------------------------------------------
 ScrollShipSurface
+  ; Store pixelX in scrollPositionLoPtr. We add 7 so that we ensure
+  ; there are three bits at the end. These will get shifted out below
+  ; but are necessary to ensure we merge pixelX with the segment value
+  ; correctly.
   LDA pixelX              ; Load pixelX to A.
   CLC                     ; Clear the carry bit.
   ADC #$07                ; Add three bits '111'.
@@ -413,13 +417,14 @@ ScrollShipSurface
   ; $XC -> 8380, $XD -> 83A0, $XE -> 83C0, $XF -> 83F0
   ;
   LDA segment             ; Load the segment value to A.
-  ADC #$00                ; Clear the carry bit.
+  ADC #$00                ; Add the carry bit.
   LSR                     ; Shift 'segment' 1 bit to the right.
   ROR scrollPositionLoPtr ; Rotate scrollPositionLoPtr 1 bit to the right.
   LSR                     ; Shift 'segment' 1 bit to the right.
   ROR scrollPositionLoPtr ; Rotate scrollPositionLoPtr 1 bit to the right.
   LSR                     ; Shift 'segment' 1 bit to the right.
   ROR scrollPositionLoPtr ; Rotate scrollPositionLoPtr 1 bit to the right.
+
   ; Use the last bit of the Accumulator to tell us whether we're in the
   ; first half of the map ($8200) or the second half ($8300).
   AND #$01                ; Get the last bit.
@@ -433,9 +438,9 @@ ScrollShipSurface
   ; bytes wide.
   LDA #$82                ; Get the start of the playfield memory address.
   ORA secondHalfOfMap     ; Add 1 for the second half if necessary.
-  STA screenDataHiPtr   ; Store as the 1st part of source address.
+  STA screenDataHiPtr     ; Store as the 1st part of source address.
   LDA scrollPositionLoPtr ; Load final value of scrollPositionLoPtr
-  STA screenDataLoPtr   ; Store as the 2nd part of source address.
+  STA screenDataLoPtr     ; Store as the 2nd part of source address.
 \end{lstlisting}
 \vspace*{\fill}
 \clearpage
@@ -502,7 +507,6 @@ We then repeat this process, adding more and more lines, one at a time:
 \vspace{-0.8cm}
 
 \clearpage
-\vspace*{\fill}
 \begin{lstlisting}
 ;---------------------------------------------------------------------
 ; This second half of the ScrollShipSurface routine looks after drawing
@@ -511,18 +515,25 @@ We then repeat this process, adding more and more lines, one at a time:
 ; screenDataHiPtr) makes this code 'self-mutating'.
 ;---------------------------------------------------------------------
 ScrollShipSurfaceContinued
+  ; Get the high and low byte of the RAM used to display the screen
+  ; and store it in screenRAMLoPtr/screenRAMHiPtr.
   LDA #>screenRAM           ; Load high byte of the screen RAM.
   STA screenRAMHiPtr        ; Store in screenRAMHiPtr
   LDA #<screenRAM           ; Load low byte of the screen RAM.
   STA screenRAMLoPtr        ; Store in screenRAMLoPtr
 
+  ; This loops through all 40 columns of all 17 rows of the screen
+  ; and draws the selected frame of the surface on it. The inner loop
+  ; is DrawNextCharacter. The outer loop is DrawRow. Note how we update
+  ; the address referenced by screenData and screenRAM directly in the code
+  ; itself using the screenDataLoPtr/screenDataHiPtr and screenRAMLoPtr/
+  ; screenRAMHiPtr references.
   LDX #17                   ; Draw 17 rows.
 DrawRow   
   LDY #40                   ; Draw 40 characters in each row.
 DrawNextCharacter   
-  ; screenDataLoPtr/screenDataHiPtr are pointers to 
-  ; screenData, allowing us to mutate the address
-  ; screenData points to.
+  ; screenDataLoPtr/screenDataHiPtr are pointers to screenData, allowing
+  ; us to mutate the address screenData points to.
   screenDataLoPtr =*+$01    ; Pointer to low byte.
   screenDataHiPtr =*+$02    ; Pointer to high byte.
   LDA screenData,Y          ; Load the character in screen data.
@@ -532,7 +543,6 @@ DrawNextCharacter
   screenRAMLoPtr  =*+$01    ; Pointer to low byte.
   screenRAMHiPtr  =*+$02    ; Pointer to high byte.
   STA screenRAM,Y           ; Write the character to screen.
-
   DEY                       ; Go to next character in row.
   BPL DrawNextCharacter     ; Loop until last character in row.
 
@@ -545,15 +555,15 @@ DrawNextCharacter
   CLC                       ; Clear the carry bit.
   ADC #40                   ; Add 40 to go to next row on screen. 
   STA screenRAMLoPtr        ; Update screenRAMLoPtr with next row.
-  BCC DrawRow              ; Do the next row.
+  BCC DrawRow               ; Do the next row.
   INC screenRAMHiPtr        ; Move the next high byte in screen RAM.
-  JMP DrawRow              ; Do the next row.
+  JMP DrawRow               ; Do the next row.
 
 Finished
   RTS                       ; We're finished, return from ScrollShipSurface.
 \end{lstlisting}
-\vspace*{\fill}
 \clearpage
+
 Building up a stack of lines one by one:
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,left}
