@@ -1,6 +1,6 @@
 # Uridium Fraktion
 ## Code, Data, Pixels
-[<img align="right" width=40% src="https://github.com/mwenge/UridiumFraktion/raw/master/src/cover/pdf/cover_front.png">](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf) 
+[<img align="right" width=60% src="https://github.com/mwenge/UridiumFraktion/raw/master/src/cover/pdf/cover_front.png">](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf) 
 
 Work-in-progress is [available for free](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf).
 
