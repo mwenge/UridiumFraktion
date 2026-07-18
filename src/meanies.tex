@@ -372,6 +372,12 @@ level15EnemyFormationOrder
     \end{adjustbox}
 \end{figure}
 
+Notice how our enemy formations only ever contain a maximum of five meanies, yet we have enough
+slots in our formation data structure for six. This is because the sixth slot is reserved for
+a bullet fired by the formation. Unlike the player bullet, which we encountered in an earlier chapter,
+the enemies' munition is a sprite. This creates some flexibility and power in the way that we deploy
+it against the player, which we will cover in a later chapter.
+
 %\begin{figure}[H]
 %    \centering
 %    \begin{adjustbox}{width=14cm,center}
