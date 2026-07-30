@@ -162,6 +162,38 @@ a negative value). The second is the \icode{frameRate}: since this routine may b
 second it will only ever need to do anything new once the current frame of the animation has been displayed
 for a long enough period.
 
+But our quest for naturalism has created a complication that must be resolved. During its maneouvres the 
+dimension and orientation of the manta changes. When flipping backwards, there is a short period in which
+the nose is facing fully upwards making the ship narrower along the horizontal plane (e.g.
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_69.png}}, 
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_6A.png}}, 
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_6B.png}} 
+).
+Likewise, when the
+ship is rolling there is a short period when it is narrower along the vertical plane (e.g.
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_4E.png}}, 
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_4D.png}}, 
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_4C.png}} 
+). When detecting whether the ship has collided with any of the infrastructure on the dreadnought's
+surface we will need to take account of this somehow. The solution is to create an array
+of flags, with one for each manta sprite, that tells us the approximate bounding box of the player's
+ship. In this array, the left-hand nibble will be \icode{\$8} if we should include the top and bottom
+of the normal manta sprite (
+\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/manta_sprites/6_40.png}} 
+) in the bounding box. The right-hand nibble meanwhile will be \icode{\$0} if we should include the left
+and right of the normal manta sprite, and \icode{\$1} otherwise.
+
+\begin{lstlisting}[escapechar=\%]
+mantaDimensionHintsArray
+  ;     %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_40.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_41.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_42.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_43.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_44.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_45.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_46.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_47.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_48.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_49.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4A.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4B.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4C.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4D.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4E.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_4F.png}}%
+  .BYTE $80,$80,$80,$80,$00,$00,$00, $80,$80,$80,$80,$80,$00,$00,$00,$80
+  ;     %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_50.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_51.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_52.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_53.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_54.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_55.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_56.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_57.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_58.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_59.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5A.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5B.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5C.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5D.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5E.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_5F.png}}%
+  .BYTE $80,$80,$80,$80,$00,$00,$00, $80,$80,$80,$80,$80,$00,$00,$00,$80
+  ;     %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_60.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_61.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_62.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_63.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_64.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_65.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_66.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_67.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_68.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_69.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_6A.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_6B.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_6C.png}}%  %\raisebox{-0.2\totalheight}{\includegraphics[height=0.32cm]{src/manta_sprites/6_6D.png}}% 
+  .BYTE $80,$80,$81,$81,$81,$80,$80, $80,$80,$81,$81,$81,$80,$80
+\end{lstlisting}
+
+
 \clearpage
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
 ;-----------------------------------------------------------------------------
@@ -227,4 +259,103 @@ DrawMantaAnimationFrame
   STA currentSpriteXPos                ; Store it as the shadow's X position.
 
   JSR DisplayCurrentSprite             ; Display the shadow sprite with the new values.
+\end{lstlisting}
+
+We get a better sense of how this works when we look at the dimension hints used in practice. Below
+we can see that the full bounding box of the manta should be checked for the first three frames (\icode{\$80}), but
+that the top and bottom of the bounding box should be ignore for the last two (\icode{\$00}) because the manta has
+become narrow on the horizontal axis.
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=10cm,center}
+      \includegraphics[width=15cm]{src/manta_flip/dimension_hints/6_bankLeftTo90DegreesFacingRight_dimension_hints.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+Likewise in the example below, we check the full bounding box for the first three \icode{\$80} but ignore the left and right of the
+bounding box (\icode{\$81}) when the manta becomes narrow on the vertical axis.
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=10cm,center}
+      \includegraphics[width=15cm]{src/manta_flip/dimension_hints/6_flip_dimension_hints.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+
+The full collision detection routine is given opposite and you can see how extensive it has to be - it is almost as verbose
+as the animation routine on the previous page. It utilizes the \icode{mantaDimensionHintsArray} to decide which of the left,
+right, top, and bottom sides of the manta to check for surface furniture that will destroy the player's ship if they collide
+with it. One of its few economies lies in the way it checks for destructive objects: any that are defined with a character code
+less than \icode{\$90} are by definition lethal to the manta. 
+
+This was a design decision we observed in our discussion of
+\hyperref[sec:bangbang]{\textcolor{blue}{the player's bullets}} in an earlier chapter,
+namely how the characters used to define the surface were deliberately chosen according to their purpose so that a simple
+range check such as the one here could be used to detect whether they were harmful to the player or resistant to the ministrations
+of the player's bullets.
+
+\clearpage
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+CheckForMantaCollisionsWithSurface
+  LDY newSpriteValue              ; Get the sprite frame.
+  LDA mantaDimensionHintsArray,Y  ; Get its dimension hint from the array.
+  STA mantaDimensionHint          ; Store it in mantaDimensionHint.
+  AND #$01                        ; Extract the low bit (horizontal dimension).
+  TAY                             ; Store it in Y
+  BNE CheckCentreOfManta          ; If low bit is a 1, only check the centre.
+
+CheckLeftSideOfManta
+  LDA (centreOfMantaLoPtr),Y      ; Get the character under the manta's centre.
+  BPL CheckRightSideOfManta       ; If it's an inoffensive character, check the right.
+  CMP #$90                        ; Check if it's a destructive character.
+  BCS CheckRightSideOfManta       ; If it's not, check the right hand side.
+  LDA #$80                        ; If it is, set the 'we've been hit' flag..
+  STA shipHasBeenHit              ; in shipHasBeenHit.
+
+CheckRightSideOfManta
+  LDY #$02                        ; Get the character under the..
+  LDA (centreOfMantaLoPtr),Y      ; .. right hand side of the manta.
+  BPL CheckCentreOfManta          ; If it's an inoffensive character, check the centre.
+  CMP #$90                        ; Check if it's a destructive character.
+  BCS CheckCentreOfManta          ; If it's not, check the right hand side.
+  LDA #$80                        ; If it is, set the 'we've been hit' flag..
+  STA shipHasBeenHit              ; in shipHasBeenHit.
+
+CheckCentreOfManta
+  LDY #$01                        ; Get the character under the..
+  LDA (centreOfMantaLoPtr),Y      ; .. centre of the manta.
+  BPL CheckTopSideOfManta         ; If it's an inoffensive character, check the top.
+  CMP #$90                        ; Check if it's a destructive character.
+  BCS CheckTopSideOfManta         ; If it's not, check the top side.
+  LDA #$80                        ; If it is, set the 'we've been hit' flag..
+  STA shipHasBeenHit              ; in shipHasBeenHit.
+
+CheckTopSideOfManta
+  LDA mantaDimensionHint          ; Get our dimension hint.
+  BPL ReturnFromCollisionCheck    ; If top bit is 0, don't check top and bottom.
+  DEC centreOfMantaHiPtr          ; Move our char pointer to..
+  DEC centreOfMantaHiPtr          ; .. the top of the manta.
+  LDA (centreOfMantaLoPtr),Y      ; Get the character there.
+  BPL CheckBottomSideOfManta      ; If it's an inoffensive character, check the bottom.
+  CMP #$90                        ; Check if it's a destructive character.
+  BCS CheckBottomSideOfManta      ; If it's not, check the bottom side.
+  LDA #$80                        ; If it is, set the 'we've been hit' flag..
+  STA shipHasBeenHit              ; in shipHasBeenHit.
+
+CheckBottomSideOfManta
+  LDA centreOfMantaHiPtr          ; Increment the Hi Ptr by 4 to move our character..
+  ADC #$04                        ; .. pointer down to the bottom of the manta..
+  STA centreOfMantaHiPtr          ; .. again.
+  LDA (centreOfMantaLoPtr),Y      ; Get the character there.
+  BPL RestorePointerToCentre      ; If it's an inoffensive character, check the bottom.
+  CMP #$90                        ; Check if it's a destructive character.
+  BCS RestorePointerToCentre      ; If it's not, check the bottom side.
+  LDA #$80                        ; If it is, set the 'we've been hit' flag..
+  STA shipHasBeenHit              ; in shipHasBeenHit.
+
+RestorePointerToCentre
+  DEC centreOfMantaHiPtr          ; Move our Hi Ptr back to the ..
+  DEC centreOfMantaHiPtr          ; .. centre of the manta.
+ReturnFromCollisionCheck
+  RTS
 \end{lstlisting}
