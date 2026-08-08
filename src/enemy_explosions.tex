@@ -1,0 +1,159 @@
+\chapter{EX/PLODE} 
+\label{sec:explosions}
+\lstset{style=6502Style}
+
+When a meanie explodes, it has an interesting feature that I did not previously appreciate. There are two phases.
+There's an initial detonation, which looks like the finished article. A lesser game developer than Andrew
+Braybrook would have stopped right here.
+
+\hspace{0.5cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_1.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_2.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_3.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_4.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_5.png}}
+\hspace{1.0cm}
+
+But it turns out this blast is followed by a secondary explosion which is subtly different. There is less
+meanie material fuelling this phase of the detonation so it is slightly lighter, with fewer blast fragments at
+its centre.
+
+\hspace{0.5cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_1.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_2.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_3.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_4.png}}
+\hspace{1.0cm}
+\raisebox{-0.2\totalheight}{\includegraphics[height=1.2cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_5.png}}
+\hspace{1.0cm}
+
+So the complete effect of an exploding enemy consists of 10 sprites in total. A surprising number, but consistent
+with the detail devoted to other effects in the game such as the manta's manouevres. Even though the explosion
+sprites are sparse they are not devoid of detail. We get a sense of the care devoted to their colour gradations
+when we blow them up into diagrams illustrating the full blast sequence.
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=14.2cm,center}
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_8.png}%
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_9.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=14.2cm,center}
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_10.png}%
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_11.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=14.2cm,center}
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_12.png}%
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_13.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=14.2cm,center}
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_14.png}%
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_15.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=14.2cm,center}
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_16.png}%
+      \includegraphics[width=7cm]{src/meanie_explosion_diagrams_list/3_MEANIE_17.png}%
+    \end{adjustbox}
+\end{figure}
+
+There is the usual detail to sort out when managing an incident of this sort. The routine
+below first has to deal with restoring the surface under the player bullet (now that
+it has disappeared after striking an enemy), it has to decide whether to award a score to
+the player, and then
+finally it must set the explosion in train. The two main elements of this last task are to 
+designate the new 'active' function for the meanie (to the self-explanatory
+\icode{AnimateEnemyExplosion}) and to specify the new sprite for the
+meanie, which in this case will be the first frame of the explosion sequence, sprite \icode{\$14}
+which we can see on the top left of the opposite page.
+
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+EnemyShipWasHit
+  LDA playerBulletSlotArray,X        ; Get the bullet that struck the meanie.
+  BEQ MaybeAwardScore                ; Skip to score check, if no bullet.
+  ; Restore any dreadnought surface underneath the removed bullet.
+  LDA playerBulletRamLoPtrArray,X    ; Get Lo Ptr to surface under bullet.
+  STA screenRAMLoPtr                 ; Store it.
+  LDA playerBulletRamHiPtrArray,X    ; Get Hi Ptr to surface under bullet.
+  STA screenRAMHiPtr                 ; Store it.
+  LDY #$00                           ; Store 0 in Y index.
+  LDA charBehindPlayerBulletArray,X  ; Get the character under the bullet.
+  STA (screenRAMLoPtr),Y             ; Restore it to the surface.
+  LDA #$00                           ; Clear the bullet that struck the meanie..
+  STA playerBulletSlotArray,X        ; .. from the bullet tracking array.
+
+MaybeAwardScore   
+  LDA meanieEarnsPoints              ; Get whether the meanie earns points.
+  BNE InitiateMeanieExplosion        ; If not, go ahead and explode it.
+  LDY scoreToAddForHittingEnemy      ; Get the score for the meanie.
+  JSR AddScoresFromHittingStuff      ; Add it to the player's score.
+
+InitiateMeanieExplosion
+  LDA #$26                           ; Get the explosion sound.
+  STA soundToPlay                    ; Store it for playing later.
+  LDY enemyIndex                     ; Get the index for the meanie.
+  ; The routine AnimateEnemyExplosion will manage the explosion animation,
+  ; so we set it here as the 'active' function for the meanie.
+  LDA #$06                           ; Get the index to AnimateEnemyExplosion
+  STA indexToEnemyUpdatePtrArray,Y   ; Set it as the meanie's active function.
+  ; Set the explosion in train by selecting its initial sprite.
+  LDA #$14                           ; Explosion's starting sprite: %\raisebox{-0.2\totalheight}{\includegraphics[height=0.30cm]{src/meanie_explosion_sprites/3_MEANIE_EXPLOSION_1.png}}% 
+  STA currentSpriteValue             ; Store it as the meanie's new sprite.
+  DEC numberOfEnemiesSpawned         ; Decrement the enemy count.
+  JMP UpdateEnemyContentAndPosition  ; Display our updates to the meanie.
+\end{lstlisting}
+
+The routine we have now designated for governing the sprite's behaviour, \icode{Animate\-EnemyExplosion},
+takes care of the relatively simple task of incrementing the sprite value for the meanie from \icode{\$14}
+all the way up to \icode{\$1D}. It does this by incrementing it using a rate limiter to control the
+pace at which the blast happens. Notice that it also ensures the exploding enemy continues to gravitate
+towards the enemy along the horizontal position. This is a small but important detail for reinforcing the
+versimilitude of the explosion: the enemy may be destroyed but its inertial movement drives it inexorably
+towards its adversary.
+
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+AnimateEnemyExplosion
+  JSR UpdateSpriteXPosToFollowManta  ; Keep the explosion moving towards the manta.
+  LDA frameRate                      ; Check our update rate limiter.
+  AND #$01                           ; We only update every second visit.
+  BNE NoFurtherActionRequired        ; Skip update if rate limit says so.
+  ; Move to the next frame in the explosion sequence.
+  INC currentSpriteValue             ; Increment the sprite value.
+  LDA currentSpriteValue             ; Load it to the A register.
+  CMP #$1E                           ; Have we reached the final sprite: %\raisebox{-0.2\totalheight}{\includegraphics[height=0.30cm]{src/meanie_explosion_sprites/3_MEANIE_SECONDARY_5.png}}% ?
+  BCC NoFurtherActionRequired        ; If not, we're done for now.
+  ; Otherwise the explosion is over, so clean up.
+  LDA #$00                           ; Load 0 to the A register.
+  STA currentSpriteDisplayEnable     ; Use it to turn the sprite 'off'.
+  LDY numberOfEnemiesToUpdate        ; Get the meanie's index.
+  STA indexToEnemyUpdatePtrArray,Y   ; Make it's active function 'DoNothing'.
+  DEC shouldWeLaunchMine             ; Dead enemies factor into mine launch decisions.
+  JSR DisplayCurrentSprite           ; Update the meanie so that it disappears.
+  RTS
+
+NoFurtherActionRequired
+  JMP DetectSpriteLeavingScreen      ; Check if the sprite has left the screen.
+\end{lstlisting}
