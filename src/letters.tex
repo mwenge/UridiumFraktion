@@ -514,7 +514,7 @@ works in practice below. (I've coloured the halfs differently for clarity.)
     \begin{adjustbox}{center}
       \raisebox{0.5\totalheight}{\includegraphics[height=2.7cm]{src/base_character_set_diagrams_alphanumeric/c64_blue_b.png}}%
       \hspace{0.5cm}
-      \raisebox{8.2\totalheight}{\includegraphics[height=0.4cm]{src/baydoor_sprites/arrow.png}}
+      \raisebox{6.2\totalheight}{\includegraphics[height=0.4cm]{src/baydoor_sprites/arrow.png}}
       \hspace{0.3cm}
       \includegraphics[height=5.4cm]{src/composite_character_set_diagrams_alphanumeric/c64_blue_c64_ltblue_b.png}%
     \end{adjustbox}
@@ -617,7 +617,7 @@ simply by interleaving it with blank lines.
       \hspace{0.5cm}
       \raisebox{0.5\totalheight}{\includegraphics[height=2.7cm]{src/base_character_set_diagrams_alphanumeric/c64_blue_y.png}}%
       \hspace{0.5cm}
-      \raisebox{8.2\totalheight}{\includegraphics[height=0.4cm]{src/baydoor_sprites/arrow.png}}
+      \raisebox{6.2\totalheight}{\includegraphics[height=0.4cm]{src/baydoor_sprites/arrow.png}}
       \hspace{0.3cm}
       \includegraphics[height=5.4cm]{src/composite_character_set_diagrams_alphanumeric/c64_blue_c64_ltblue_y.png}%
     \end{adjustbox}
@@ -654,54 +654,55 @@ to it (giving \euro{CHAR/5A} from \euro{CHAR/3A} in our example), while the lowe
 
 \clearpage
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+  ; Write a character to the screen. Take account of the fact that
+  ; all characters will have a top and bottom half, and some such as
+  ; capital letters will have 4 characters, two on top and two below.
 WriteCharacterToScreen
-  ; Move the ptr to the x/y position.
-  LDY currentCharYPos
-  LDA screenLineHiPtrArray,Y
-  STA screenCharHiPtr
-  LDA screenLineLoPtrArray,Y
-  CLC
-  ADC currentCharXPos
-  STA screenCharLoPtr
+  LDY currentCharYPos         ; Store Y position of char in Y.
+  LDA screenLineHiPtrArray,Y  ; Use it to get the high byte pointer..
+  STA screenCharHiPtr         ; .. and store it in screenCharHiPtr.
+  LDA screenLineLoPtrArray,Y  ; Use it to get the low byte pointer..
+  ADC currentCharXPos         ; .. offset with the X position of the char..
+  STA screenCharLoPtr         ; .. and store it in screenCharLoPtr.
 
-  LDA #$00
-  ADC screenCharHiPtr
-  STA screenCharHiPtr
+  LDA #$00                    ; Add any carry from the X position..
+  ADC screenCharHiPtr         ; .. by adding the Hi Ptr to $00 and ..
+  STA screenCharHiPtr         ; .. storing it.
 
   ; Write the top half of the character
-  LDA charToWrite
-  LDY #$00
-  STA (screenCharLoPtr),Y
+  LDA charToWrite             ; Get the top half of the character.
+  LDY #$00                    ; Write it to the position on screen..
+  STA (screenCharLoPtr),Y     ; .. pointed to by screenCharLoPtr.
 
   ; Write the bottom half of the character
-  ORA #$80
-  LDY #$28
-  STA (screenCharLoPtr),Y
+  ORA #$80                    ; Adjust A, e.g. turn $3A to $BA.
+  LDY #$28                    ; Advance 40 positions to write it to..
+  STA (screenCharLoPtr),Y     ; .. the position under the top char.
 
-  ; Check if the byte encodes a second half.
-  INC currentCharXPos
-  AND #$7F
-  ; Characters between 3A and 5A have a second half. For example,
+  ; Check if the character requires four characters to be written, e.g. 'A'.
+  INC currentCharXPos         ; Move the next position on the screen.
+  ; Characters between $3A and $59 have a second half. For example,
   ; capital A has a second half.
-  CMP #$3A
-  BCC FinishedWritingCharacter
+  AND #$7F                    ; Check the lower 7 bits of the char.
+  CMP #$3A                    ; If it is less than $3A..
+  BCC FinishedWritingChar     ; .. then we're done.
 
-  CMP #$5A
-  BCS FinishedWritingCharacter
+  CMP #$5A                    ; If it's greater than 59..
+  BCS FinishedWritingChar     ; .. then we're done.
 
-  ; The byte encodes a second half. Write the top half of it.
-  LDY #$01
-  ADC #$20   ; The top half of the right hand portion.
-  STA (screenCharLoPtr),Y
+  ; Write the top half of the second part, for e.g. a capital letter.
+  LDY #$01                    ; Point to the second half.
+  ADC #$20                    ; Add $20 to turn e.g. $3A into $5A.
+  STA (screenCharLoPtr),Y     ; Write it to the top right half.
 
-  ; Write the bottom half of it.
-  ORA #$80   ; The bottom half of the right hand portion.
-  LDY #$29
-  STA (screenCharLoPtr),Y
+  ; Write the bottom half of the second part, for e.g. a capital letter.
+  ORA #$80                    ; Adjust A, e.g. turn $5A into $DA. 
+  LDY #$29                    ; Advance 41 positions to write to..
+  STA (screenCharLoPtr),Y     ; .. the position under the top char.
 
-  INC currentCharXPos
-FinishedWritingCharacter   
-  RTS
+  INC currentCharXPos         ; Increase the X pos to match what we've written.
+FinishedWritingChar   
+  RTS                         ; We're done, return.
 \end{lstlisting}
 
 Notice in this instance how the 
@@ -713,10 +714,10 @@ naturalness of the font with the lightest of touches.
 
 We can also find attention to kerning of the glyphs in the treatment of 
 \hspace{-0.1cm}
-\raisebox{-0.15\totalheight}{\includegraphics[height=0.45cm]{src/composite_character_sets_alphanumeric/c64_blue_c64_ltblue_m.png}}
+\raisebox{-0.26\totalheight}{\includegraphics[height=0.45cm]{src/composite_character_sets_alphanumeric/c64_blue_c64_ltblue_m.png}}
 and
 \hspace{-0.1cm}
-\raisebox{-0.15\totalheight}{\includegraphics[height=0.45cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_ltgreen_w.png}}
+\raisebox{-0.26\totalheight}{\includegraphics[height=0.45cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_ltgreen_w.png}}
 . These two alone among the lower case character definitions have four characters dedicated to rendering them rather than two.
 
 Here we have the 'm', centred precisely in the middle of the 4-character glyph.
