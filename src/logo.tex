@@ -1,0 +1,1593 @@
+\chapter{LO/GO} 
+\label{sec:logo}
+\lstset{style=6502Style}
+
+
+During gameplay we have a nice little status line that tells us how we're doing. This features the slick-looking little logo rendered
+in white and yellow. This doesn't stick around for long however. We soon notice that the status line is dynamic and cycles through
+a bunch of in-game information.
+
+% In Game Top Line%
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/banner_diagrams/c64_white_c64_yellow_logo.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+As if to torment us for our failings it switches next to telling us the current high score. An accomplishment that is invariably
+not ours.
+
+% In Game Top Line%
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_H_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_i_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_-_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_s_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_c_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_o_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+Yes, the next item in the sequence confirms it belongs to someone else. A suspiciously round number attributed to Andrew E Braybrook.
+
+% In Game Top Line%
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_2_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_A_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_E_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_B_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+The final element in the cycle is the name of the current level.
+
+% In Game Top Line%
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_p_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_ltblue_7A.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_3_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_8_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_._outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_T_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_u_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_n_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_g_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_s_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_t_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_n_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_._outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+And after that, we go back to the beginning. This in-game status cycle is managed by the routine opposite, specifically the top half.
+This decides which of the above four elements to display based on a combination of the value in \icode{currentBannerState} and 
+whether we are paused, in demo mode, or actually playing a game. The routine contains a number of little micro-routines, each 
+responsible for displaying one of the elements. To help you identify, which micro-routine does what I've added a graphic of its
+area of responsibility next to it in the comments.
+
+But there's a second section to the routine that also manages the status line when we're in attract mode, in other words, when
+we're on the title screen. This is \icode{Update\-Attract\-ModeStatus}. This segment of the routine updates the status line
+depending on the input and player configuration the player has currently selected. Since no level is being played, this information
+is what it will display in the absence of a level name to offer.
+
+For example, if two players and two joysticks have been selected it will display this.
+
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_57_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_55_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_55_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+While if one player and two joysticks have been selected it will display this.
+
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_57_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_55_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+The last, and most common configuration, is one player and one joystick - which looks like this.
+
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_57_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_55_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+This selection is managed by the value in \icode{playerAndJoystickMode}. In \icode{Update\-Attract\-ModeStatus} opposite we can see
+that this value is used as an index into an array \icode{gameConfigLoPtrArray}. This array provides addresses into each of the
+data definitions for the three lines above.
+
+
+\clearpage
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+UpdateTheStatusLine
+  LDA currentBannerState    ; Get the current banner status.
+  ADC #$01                  ; Add 1.
+  AND #$03                  ; Clamp to between 0 and 3.
+  STA currentBannerState    ; Store the new state.
+  BEQ WriteUridiumLogo      ; If it's zero: write the logo.
+                           
+  LDA pausedPlayingOrDemo   ; Are we paused, playing, or in attract mode?
+  CMP #$03                  ; If we're in demo mode..
+  BEQ WriteUridiumLogo      ; .. just show the logo.
+                           
+  LDA currentBannerState    ; Get the updated state value.
+  CMP #$01                  ; If it's 1..
+  BEQ WriteHiScoreLabel     ; .. then show the Hi-Score label.
+  CMP #$02                  ; If it's 2..
+  BEQ WriteInGameHiScore    ; .. then show the current high score.
+                           
+  LDA pausedPlayingOrDemo   ; Check if we are playing a game..
+  CMP #$02                  ; If it's 2, we are playing a game..
+  BEQ WriteCurrentLevel     ; .. so show the current level.
+
+UpdateAttractModeStatus
+  LDA playerAndJoystickMode ; Get the current player/joystick config.
+  TAY                       ; Store it in Y.
+  LDA gameConfigHiPtrArray,Y; Use it to get the appropriate status line.
+  LDX gameConfigLoPtrArray,Y; Use it to get the appropriate status line.
+  TAY                       ; Make sure Y has the Lo Ptr.
+  JSR WriteToScreen         ; Write the status line to screen.
+  LDA monochromeEnabled     ; Is Monocrhome enabled?
+  BEQ WriteColorSymbol      ; If not, then show the color symbol.
+
+WriteMonochromeSymbol   ; Otherwise..
+  LDX #<monoSymbol      ; .. get the monochrome symbol Lo Ptr.
+  LDY #>monoSymbol      ; And the monochrome symbol Hi Ptr.
+  JSR WriteToScreen     ; And write it to screen.
+  RTS                   ; And we're done.
+WriteColorSymbol   
+  LDX #<colorSymbol     ; Get the color symbol Lo Ptr.
+  LDY #>colorSymbol     ; And the color symbol Hi Ptr.
+  JSR WriteToScreen     ; And write it to screen.
+  RTS                   ; And we're done.
+WriteUridiumLogo 
+  LDX #<uridiumDecal    ; Get the logo Lo Ptr.
+  LDY #>uridiumDecal    ; And the logo Hi Ptr.
+  JSR WriteToScreen     ; And write it to screen.
+  RTS                   ; And we're done.
+WriteHiScoreLabel   
+  LDX #<hiScoreLabel    ; Get hi-score label Lo Ptr.
+  LDY #>hiScoreLabel    ; And hi-score label Hi Ptr.
+  JSR WriteToScreen     ; And write it to screen.
+  RTS                   ; And we're done.
+WriteInGameHiScore   
+  LDX #<inGameHiScore   ; Get the hi-score Lo Ptr.
+  LDY #>inGameHiScore   ; And the hi-score Hi Ptr.
+  JSR WriteToScreen     ; And write it to screen.
+  RTS                   ; And we're done.
+WriteCurrentLevel   
+  LDY levelIndex        ; Get the level index.
+  LDX levelNameLoPtrs,Y ; Get Hi Ptr to level name.
+  LDA levelNameHiPtrs,Y ; Get Lo Ptr to level name.
+  TAY                   ; Make sure Y has Lo Ptr..
+  JSR WriteToScreen     ; Write to screen.
+\end{lstlisting}
+\vspace{-8.90cm}
+\hspace{7.105cm}
+\begin{minipage}[c]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=1.0cm,center}
+      \includegraphics{src/composite_character_sets/c64_white_c64_yellow_58_outlined.png}
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+
+\hspace{7.105cm}
+\begin{minipage}[r]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=1.0cm,center}
+      \includegraphics{src/composite_character_sets/c64_white_c64_yellow_57_outlined.png}
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+
+\hspace{7.105cm}
+\begin{minipage}[r]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=4.0cm,center}
+   \includegraphics{src/banner_diagrams/c64_white_c64_yellow_logo.png}%
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+
+\vspace{0.20cm}
+\hspace{7.105cm}
+\begin{minipage}[r]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=4.0cm,center}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_H_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_i_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_-_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_s_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_c_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_o_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_r_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_e_outlined.png}}
+      \hspace{-0.2cm}
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+
+\vspace{0.305cm}
+\hspace{7.105cm}
+\begin{minipage}[r]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=5.0cm,center}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_1_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_2_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_ _outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_A_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_E_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_B_outlined.png}}
+      \hspace{-0.2cm}
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+
+\hspace{7.105cm}
+\begin{minipage}[c]{0.50\linewidth}
+\end{minipage}
+\begin{minipage}[r]{0.50\linewidth}
+ \vspace{-0.4cm}
+ \begin{figure}[H]
+  \centering
+  \begin{adjustbox}{width=5.0cm,center}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_0_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_8_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_._outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_ _outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_T_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_u_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_n_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_g_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_s_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_t_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_e_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_n_outlined.png}}
+      \hspace{-0.2cm}
+      \raisebox{-0.25\totalheight}{\includegraphics[height=3.45cm]{src/composite_character_sets_alphanumeric/c64_white_c64_yellow_._outlined.png}}
+      \hspace{-0.2cm}
+  \end{adjustbox}
+ \end{figure}
+\end{minipage}
+\clearpage
+
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+bannerConfigurationLoPtrArray
+  .BYTE <inGameTwoPlayersTwoJoysticksDisplay
+  .BYTE <inGameOnePlayerOneJoystickDisplay
+  .BYTE <inGameTwoPlayersOneJoystickDisplay
+bannerConfigurationHiPtrArray
+  .BYTE >inGameTwoPlayersTwoJoysticksDisplay
+  .BYTE >inGameOnePlayerOneJoystickDisplay
+  .BYTE >inGameTwoPlayersOneJoystickDisplay
+\end{lstlisting}
+
+The data definitions each provide an X and Y position on the screen for the status line. The definitions
+consists of space characters with the appropriate number of players (\icode{\$55}) and
+joysticks (\icode{\$56}). Each definition is terminated by an \icode{\$FF}.
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+inGameTwoPlayersTwoJoysticksDisplay
+  .BYTE 2    ; X Position
+  .BYTE $0C  ; Y Position
+  .TEXT "     ", $55, $55, "     ", $56, $56, $FF ; 2 players, 2 joysticks.
+inGameOnePlayerOneJoystickDisplay
+  .BYTE $02  ; X Position
+  .BYTE $0C  ; Y Position
+  .TEXT "     ", $55,    "         ", $56, $FF    ;  1 player, 1 joystick.
+inGameTwoPlayersOneJoystickDisplay
+  .BYTE $02  ; X Position
+  .BYTE $0C  ; Y Position
+  .TEXT "     ", $55, $55, "       ", $56, $FF    ; 2 players, 1 joystick.
+\end{lstlisting}
+
+In the \icode{WriteToScreen} routine opposite we see how these lines are consumed. This routine is
+the one referenced repeatedly on the previous page. Given any string of character data with a Y and X
+position specified at its head, it will faithfully write them to screen.
+
+One final thing. In the above status lines we've displayed the player and input configuration along with a symbol indicating that 'colour' has been
+enabled. It is possible to select a monochrome display by pressing \icode{F8}. If that has been selected we get a slightly different
+display, with the monochrome symbol replacing its colour counterpart.
+
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_1_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_ _outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_P_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_l_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_a_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_y_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_e_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_r_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets_alphanumeric/c64_ltblue_c64_blue_2_outlined.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.4cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_58_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_55_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_56_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_white_c64_yellow_30_outlined.png}}
+\hspace{-0.2cm}
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
+\hspace{-0.2cm}
+
+
+\clearpage
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+; ----------------------------------------------------------------
+; The WriteToScreen routine used to write the status line elements
+; to the screen by 'UpdateTheStatusLine' on the previous page.
+; ----------------------------------------------------------------
+WriteToScreen
+  STX dataLoPtr         ; Store X as our Lo Ptr to data to read.
+  STY dataHiPtr         ; Store Y as our Hi Ptr to data to read.
+
+  ;Get the Y Pos from the first byte
+  LDY #$00             ; Store 0 in Y.
+  LDA (dataLoPtr),Y    ; Use it to get the byte with our Y pos.
+  STA currentCharYPos  ; Store it as the Y position to use.
+
+  ; Return early if the Y Pos is invalid
+  CMP #$18             ; If the Y position is greater than height of screen..
+  BCS ReturnEarly      ; ..then bail out and return early.
+
+  ; Get the X pos from the second byte
+  INY                  ; Go to the next byte in the data.
+  LDA (dataLoPtr),Y    ; Load it..
+  STA currentCharXPos  ; ..and store it as the X pos to write to.
+
+  ; Get the character to write.
+  INY                  ; Go to the next byte in the data.
+  LDA (dataLoPtr),Y    ; Load it.
+  JMP ReadCharData     ; Start reading the character data.
+
+WriteCharsLoop
+  LDY writeCharsIndex  ; Get the current index to the data and store in Y.
+  LDA (dataLoPtr),Y    ; Load the next byte of character data.
+ReadCharData 
+  INY                  ; Increment the index to the data.
+  STY writeCharsIndex  ; Store it for next iteration in the loop.
+
+  ; Stop writing if the leftmost bit is set on writeCharsIndex.
+  ; This means the most bytes we'll write is 128.
+  BMI ReturnEarly
+  ; Stop writing if the leftmost bit is set on the char to write,
+  ; e.g. we've hit our terminator sentinel of $FF.
+  CMP #$00            ; Is the topmost bit of the character set?
+  BMI ReturnEarly     ; If so, we've hit the terminator so bail.
+
+  ; Otherwise write the character to screen.
+  STA charToWrite     ; Store the byte in charToWrite.
+  JSR WriteCharacterToScreen ; And write it to screen.
+  JMP WriteCharsLoop  ; Keep looping until done.
+
+ReturnEarly
+  RTS                 ; Return when done.
+\end{lstlisting}
