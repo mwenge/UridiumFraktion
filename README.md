@@ -27,12 +27,12 @@ You can even [sponsor future work](https://github.com/sponsors/mwenge/).
 
 ## A Peek Inside
 These screenshots give you a flavour of what the book looks like. 
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page03.png">
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page04.png">
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page01.png">
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page05.png">
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page02.png">
-<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/out/docs/images/page06.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page03.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page04.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page01.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page05.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page02.png">
+<img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page06.png">
 
 ## Building
 If you like, you can [build the book from source](BUILD.md).
