@@ -1,5 +1,5 @@
 # Uridium Fraktion
-## Code, Data, Pixels
+## Objects, Effects
 [<img align="right" width=50% src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/cover_front.jpg">](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf) 
 
 Work-in-progress is [available for free](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf).
