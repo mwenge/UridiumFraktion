@@ -1,0 +1,530 @@
+\chapter{TITLE/SCROLL} 
+\label{sec:title}
+\lstset{style=6502Style}
+
+During attract mode we get a sequence of large scrolling text giving us the title
+and author of the game, along with the current holder of the high score.
+\begin{figure}[H]
+ \centering
+ \begin{adjustbox}{height=00.7cm,center}
+     \includegraphics{src/scroller_title/uridiumby.png}
+ \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+\begin{figure}[H]
+ \centering
+ \begin{adjustbox}{height=00.7cm,center}
+     \includegraphics{src/scroller_title/andrew.png}
+ \end{adjustbox}
+\end{figure}
+\vspace{-0.4cm}
+\begin{figure}[H]
+ \centering
+ \begin{adjustbox}{height=00.7cm,center}
+     \includegraphics{src/scroller_title/hiscore.png}
+ \end{adjustbox}
+\end{figure}
+
+This looks an awful lot like a dreadnought scrolling past us, but instead of an alien
+surface it is composed entirely of giant letters. It should come as no surprise to find
+then, that that is exactly what it is. The scrolling uses the same dreadnought mechanics
+we encountered in previous chapters both for rendering dreadnoughts and animating our
+horizontal progress along their surface.
+
+Just as with the dreadnought, the 'surface' constituted by the letters is made up
+of individual strips and concatenated together. But rather than laboriously paste
+these strips together, the author has instead created a little font system for creating
+these surfaces that allows the text to be dynamic rather than fixed.
+
+\begin{minipage}[l]{0.62\linewidth}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=08.60cm,center}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_0.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_1.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_2.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=08.60cm,center}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_3.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_4.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_5.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=08.60cm,center}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_6.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_7.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_8.png}%
+    \end{adjustbox}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{width=08.60cm,center}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_9.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_10.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyph_diagrams/glyph_11.png}%
+    \end{adjustbox}
+\end{figure}
+\end{minipage}
+\hspace{0.4cm}
+\begin{minipage}[r]{0.32\linewidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+fontData
+.BYTE $27,$28,$50,$2A ; 0
+.BYTE $45,$23,$00,$00 ; 1
+.BYTE $43,$25,$46,$00 ; 2
+.BYTE $47,$25,$25,$26 ; 3
+.BYTE $48,$00,$00,$00 ; 4
+.BYTE $49,$4A,$25,$3C ; 5
+.BYTE $27,$24,$25,$3C ; 6
+.BYTE $3D,$4C,$00,$00 ; 7
+.BYTE $4D,$24,$25,$26 ; 8
+.BYTE $3B,$4A,$25,$4E ; 9
+.BYTE $21,$22,$57,$23 ; A
+.BYTE $21,$24,$25,$26 ; B
+.BYTE $27,$28,$50,$29 ; C
+.BYTE $21,$28,$50,$2A ; D
+.BYTE $21,$24,$25,$2B ; E
+.BYTE $21,$22,$2C,$00 ; F
+.BYTE $27,$28,$2D,$00 ; G
+.BYTE $21,$2E,$23,$00 ; H
+.BYTE $21,$23,$00,$00 ; I
+.BYTE $2F,$30,$00,$00 ; J
+.BYTE $21,$32,$00,$00 ; K
+.BYTE $21,$33,$31,$34 ; L
+.BYTE $21,$35,$36,$37 ; M
+.BYTE $21,$35,$37,$00 ; N
+.BYTE $27,$28,$50,$2A ; O
+.BYTE $21,$22,$38,$00 ; P
+.BYTE $27,$28,$39,$00 ; Q
+.BYTE $21,$3A,$00,$00 ; R
+.BYTE $3B,$4A,$25,$3C ; S
+.BYTE $3D,$4B,$00,$00 ; T
+.BYTE $3E,$30,$00,$00 ; U
+.BYTE $3F,$00,$00,$00 ; V
+.BYTE $3E,$33,$40,$30 ; W
+.BYTE $41,$00,$00,$00 ; X
+.BYTE $42,$00,$00,$00 ; Y
+.BYTE $43,$25,$44,$00 ; Z
+.BYTE $20,$20,$20,$20 ;  
+.BYTE $1F,$00,$00,$00 ; .
+.BYTE $4F,$00,$00,$00 ; -
+.BYTE $00,$00,$00,$00 ;  
+\end{lstlisting}
+\end{minipage}
+
+We can see the makings of the font system above, where we list the entire specification on the right 
+hand side with a sample of the first 12 letters in the system on the left. Each letter is composed of up to four strips 
+arranged horizontally. All the font system has to do is specify which strips to put together
+to form a letter. For example, to create a \icode{0} (
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_0.png}}
+)
+we concatenate the 4 strips \icode{\$27}, \icode{\$28}, \icode{\$50}, and \icode{\$2A}. 1 (
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_1.png}}
+)
+, on the other hand, only requires 2 strips - \icode{\$45} and \icode{\$23} - so the last two go unused
+and are coded as \icode{\$00}s.
+
+Notice how while most glyphs are constructed from parts (some that are elsewhere
+used to construct the
+dreadnoughts), others such as 4 (
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_4.png}}
+)
+consist of a single custom section.
+
+With this data in hand we can use the routine opposite to construct a 'dreadnought'
+
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+CreateSurfaceDataFromMessage
+  LDX #$00                 ; Store zero in..
+  STX dataIndex            ; our index to the message.
+  STX currentStripIndex    ; out index to the surface data we will create.
+
+ReadInMessage   
+  LDY scrollingMessage,X   ; Get the next character in the message.
+  BMI EndOfMessage         ; If it's $FF, then we've reached end of message.
+  LDA indexesToFontData,Y  ; Get the corresponding index into fontData..
+  ADC #$60                 ; Add $60 to ensure we point at fontData. 
+  STA srcLoPtr             ; So store it as our Lo Ptr into fontData.
+
+  LDA #$C0                 ; The Hi Ptr is a fixed value of $C0.
+  STA srcHiPtr             ; Store it as our Hi Ptr.
+
+  ; Create a glyph from the 4 bytes.
+  LDY #$00                 ; Our index into the 4 byte glyph data.
+  LDX currentStripIndex    ; Our current position in the surface data.
+ConcatenateStrips   
+  LDA (srcLoPtr),Y         ; Read in a byte of the glyph data.
+  BEQ SkipToNextStrip      ; If it's zero go to the next byte.
+  STA titleScreenData,X    ; Otherwise concatenate it to the surface data.
+  INX                      ; Move to next position in surface.
+SkipToNextStrip   
+  INY                      ; Go to the next byte in the glyph.
+  CPY #$04                 ; Have we done 4 bytes yet?
+  BCC ConcatenateStrips    ; If not, continue to loop.
+
+  LDA #$01                 ; Strip $01 is a letter separator so concatenate it..
+  STA titleScreenData,X    ; .. to add space between our letters.
+  INX                      ; Move to the next position in our surface data..
+  STX currentStripIndex    ; ..in preparation for our next letter.
+  INC dataIndex            ; Move the index to the next character in the message.
+  LDX dataIndex            ; Store the index for use in the next iteration.
+  BPL ReadInMessage        ; Keep looping until end of message or 128 characters.
+
+  ; Write four trailing spaces to the message so that it scrolls fully.
+EndOfMessage   
+  LDX currentStripIndex    ; Get the current position in the surface data.
+  LDY #$03                 ; We'll write four trailing spaces.
+  LDA #$00                 ; Store a ref to the 'space' strip in A.
+AddTrailingSpace   
+  STA titleScreenData,X    ; Concatenate the trailing space to the surface.
+  INX                      ; Got to the next position in the surface.
+  DEY                      ; Update our counter and keep looping..
+  BPL AddTrailingSpace     ; ..until we've done all four.
+  RTS
+\end{lstlisting}
+from a properly encoded message. By 'properly encoded' we mean a message that
+will reference the appropriate offset in \icode{fontData} for each constituent
+letter. The message used by \textit{Uridium} runs as follows:
+
+
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+scrollingMessage
+  .BYTE $4E,$1B,$12,$0D,$12,$1E,$42,$30             ; "Uridium "
+  .BYTE $0B,$22,$30,$3A,$17,$0D,$1B,$0E,$54,$30     ; "by Andrew "
+  .BYTE $3B,$1B,$0A,$22,$0B,$1B,$18,$18,$14,$28,$30 ; "Braybrook "
+  .BYTE $41,$12,$10,$11,$30,$2E,$30                 ; "High - "
+  .BYTE $01,$02,$00,$00,$00,$30,$3A,$3E,$3B         ; "1200 AEB"
+  .BYTE $FF,$FF,$FF,$FF                             ; End of Message Bytes
+\end{lstlisting}
+
+As we can see from a careful reading of \icode{CreateSurfaceDataFromMessage} each
+letter is encoded as index into a separate index table called \icode{indexesToFontData}.
+This table tells us the position we will find each letter in our \icode{fontData}.
+
+For example, for the numeral 2 (
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_2.png}}
+)
+the encoding is \icode{\$02}. This means we should look at entry three
+in \icode{indexesToFontData} (entry 3, because we're counting from zero).
+
+\begin{lstlisting}
+indexesToFontData
+  .BYTE $00,$04,$08,$0C,$10,$14,$18,$1C,$90,$90,$90,$90,$90,$90,$90,$90
+  .BYTE $20,$24,$28,$2C,$30,$34,$38,$3C,$90,$90,$28,$2C,$30,$34,$38,$3C
+  .BYTE $40,$44,$48,$4C,$50,$54,$48,$5C,$40,$44,$58,$4C,$50,$54,$58,$5C
+  .BYTE $60,$64,$68,$6C,$70,$74,$78,$7C,$60,$64,$68,$6C,$70,$74,$78,$7C
+  .BYTE $90,$84,$88,$8C,$90,$90,$90,$90,$80,$84,$88,$8C,$80,$90,$90,$90
+  .BYTE $94,$90,$90,$90,$90,$90,$98,$90,$90,$90,$90,$90,$90,$90,$90,$90
+\end{lstlisting}
+
+This retrieves a value of \icode{\$08}. It is that that is the position in \icode{fontData} from which 
+we should read the four bytes that will generate our glyph for the numeral 2. We can see this below,
+at position 8 we find the four bytes \icode{\$43}, \icode{\$25}, \icode{\$25}, and \icode{\$26} that
+concatenate to form our chosen numeral of 2 (
+\raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_2.png}}
+).
+
+\begin{minipage}[l]{0.42\linewidth}
+\begin{figure}[H]
+    \centering
+    \begin{adjustbox}{height=01.50cm,center}
+      \includegraphics[height=3cm]{src/scroller_title/glyphs/glyph_0_faded.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyphs/glyph_1_faded.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyphs/glyph_2.png}%
+      \hspace{0.5cm}
+      \includegraphics[height=3cm]{src/scroller_title/glyphs/glyph_3_faded.png}%
+    \end{adjustbox}
+\end{figure}
+\end{minipage}
+\hspace{0.6cm}
+\begin{minipage}[r]{0.52\linewidth}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily, escapechar=\%]
+fontData
+.BYTE $27,$28,$50,$2A ; Position 0  - '0' 
+.BYTE $45,$23,$00,$00 ; Position 4  - '1' 
+.BYTE $43,$25,$46,$00 ; Position 8  - '2' 
+.BYTE $47,$25,$25,$26 ; Position 12 - '3' 
+\end{lstlisting}
+\end{minipage}
+
+The simplicity and effectiveness of this little system means that in addition to the title
+and author, the scrolling message can be updated to include the current high score and its
+owner because it can be used to display any arbitrary text. 
+
+The one other place in which the
+font system is used is in the final level, for a slightly insulting message to the victor as they
+scroll over the final section of the ultimate dreadnought.
+
+\vspace{-0.1cm}
+\begin{figure}[H]
+    \begin{adjustbox}{width=14cm,left}
+      \includegraphics{src/surfaces_raw/15.png}%
+    \end{adjustbox}
+\end{figure}
+
+But of course this message isn't constructed dynamically, it's baked into the level data. After
+an elapse of some forty years, it's time to dust the font off again and make some dilatory use
+of it. Yes, you know where I'm going with this.
+
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_h.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_w.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_b.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_r.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_f.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_l.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_r.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_p.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_..png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_L.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_y.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_p.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_p.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_l.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_f.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_c.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_e.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_s.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_a.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_f.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_n.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_t.png}}
+\hspace{-0.2cm}
+
+\vspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_f.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_r.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_o.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_ .png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_r.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_d.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_i.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_u.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_m.png}}
+\hspace{-0.2cm}
+\raisebox{-0.1\totalheight}{\includegraphics[height=0.45cm]{src/scroller_title/glyphs_alphanumeric/glyph_..png}}
+\hspace{-0.2cm}
+
