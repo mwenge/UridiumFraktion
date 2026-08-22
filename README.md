@@ -19,6 +19,7 @@ Work-in-progress is [available for free](https://github.com/mwenge/UridiumFrakti
 
 ## A Peek Inside
 These screenshots give you a flavour of what the book looks like. 
+
 <img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page03.jpg">
 <img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page04.jpg">
 <img width=800 src="https://github.com/mwenge/UridiumFraktion/raw/master/docs/images/page01.jpg">
