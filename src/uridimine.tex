@@ -258,45 +258,58 @@ passed control of the uridimine from one routine to another, by updating the act
 \fcode{indexToEnemyUpdatePtrArray}. In the \fcode{UpdateEnemies} routine opposite we see how the contents
 of this array are used to figure out which routine to call for each active enemy, including the uridimine.
 
+What's most interesting here is the use of 'self-mutating' code. Every time its run the code in this routine
+subtly alters itself!
+This alteration takes place in the two bytes after \fcode{JSR} in \fcode{JSR EnemyUpdateRoutine}. At each
+turn through the \fcode{EnemyUpdateLoop}, the high and low bytes that point to the enemy's current update
+routine are loaded from \fcode{enemyUpdatePtrArray} and written to the two bytes at \fcode{EnemyUpdateRoutine}.
+This means that when it comes time to run the \fcode{JSR} statement, it will run whatever routine those two
+bytes now point to. In the case of the uridimine this evolved over time from \fcode{AnimateMineCreation}, to
+\fcode{MineSeeksManta}, to \fcode{AnimateUridimineExplosion}.
+
+This is achieved by making \fcode{functionLoPtr} point to the first byte and \fcode{functionHiPtr} point to the
+second. When we read from \fcode{enemyUpdatePtrArray} and write to \fcode{functionLoPtr} and \fcode{functionHiPtr}, 
+we are mutating the code of the routine itself, altering its byte values to reference the routine we are interested
+in running.
 
 \clearpage
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
 UpdateEnemies
-        LDA #$0A
-        STA dataIndex
-        LSR
-        ; Store $08 in currentEnemyIndex
-        STA currentEnemyIndex
-        LDA #$FF
-        STA currentSpriteMultiColorMode
-        STA spriteEnable
-        LDA #$00
-        STA currentSpriteBackgroundDisplayPriority
+  LDA #10                           ; Store 10 in A.
+  STA dataIndex                     ; Store 10 in dataIndex.
+  LSR                               ; Divide 10 by 2 giving 5.
+  STA currentEnemyIndex             ; Store that as number of enemies.
+  LDA #$FF                          ; Load -1 to A.
+  STA currentSpriteMultiColorMode   ; Turn off sprite multicolor mode.
+  STA spriteEnable                  ; Turn off sprites while we update.
 
 EnemyUpdateLoop   
-        LDY currentEnemyIndex
-        STY spriteIndex
-        LDA indexToEnemyUpdatePtrArray,Y
-        AND #$0E
-        BEQ SkipEnemyUpdate
+  LDY currentEnemyIndex             ; Get the current index, starting at 5.
+  STY spriteIndex                   ; Store it as our spriteIndex.
+  LDA indexToEnemyUpdatePtrArray,Y  ; Use it to get the current function for the enemy.
+  AND #$0E                          ; Check if we're actually pointing at anything.
+  BEQ SkipEnemyUpdate               ; If we're not skip to the next one.
 
-        ; Run a function for the sprite.
-        TAX
-        LDA enemyUpdatePtrArray,X
-        STA functionHiPtr
-        LDA enemyUpdatePtrArray + $01,X
-        STA functionLoPtr
+  ; Run a routine for the enemy. We pick this from enemyUpdatePtrArray and
+  ; write it to the bytes functionHiPtr and functionLoPtr which are the two
+  ; bytes where EnemyUpdateRoutine is below..
+  TAX                               ; Move A to X so we can get a function pointer.
+  LDA enemyUpdatePtrArray,X         ; Get the High Byte of the function pointer.
+  STA functionHiPtr                 ; Overwrite 1st byte of EnemyUpdateRoutine below.
+  LDA enemyUpdatePtrArray + $01,X   ; Get the Low Byte of the function pointer.
+  STA functionLoPtr                 ; Overwrite 2nd byte of EnemyUpdateRoutine below.
 
-        JSR GetCurrentSprite
-        LDY currentEnemyIndex
-functionHiPtr   =*+$01
-functionLoPtr   =*+$02
-        JSR UpdateEnemyPositions
+  JSR GetCurrentSprite              ; Get the sprite detail for current enemy.
+  LDY currentEnemyIndex             ; Store the enemy index in Y.
+functionHiPtr   =*+$01              ; Points to 1st byte after JSR below.
+functionLoPtr   =*+$02              ; Points to 2nd byte after JSR below.
+  JSR EnemyUpdateRoutine            ; Run the routine we picked for the enemy.
 
 SkipEnemyUpdate
-        DEC dataIndex
-        DEC dataIndex
-        DEC currentEnemyIndex
-        BPL EnemyUpdateLoop
-        RTS
+  DEC dataIndex                     ; Decrement the dataIndex by two..
+  DEC dataIndex                     ; .. so that we can use for next enemy.
+  DEC currentEnemyIndex             ; Got to the next enemy.
+  BPL EnemyUpdateLoop               ; Keep looping until done.
+  RTS
 \end{lstlisting}
+
