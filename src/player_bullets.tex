@@ -227,7 +227,7 @@ GoToNextCharacter
 \end{lstlisting}
 
 The way we handle structures that block a bullet is even more straightforward. We noticed above
-that we call \icode{BulletBlocked} when the we overlap a character with a value between \icode{\$80} and
+that we call \fcode{BulletBlocked} when the we overlap a character with a value between \icode{\$80} and
 \icode{\$8F}.
 
 \begin{figure}[H]
@@ -269,7 +269,7 @@ of the kiosks, are permeable, using ranges outside the \icode{\$80} - \icode{\$8
 \end{figure}
 
 Dealing with a blocked bullet is as simple as clearing it out of the array we use to manage the
-state of the six bullets thar active at any given time. This array is called \icode{playerBulletSlotArray}.
+state of the six bullets thar active at any given time. This array is called \fcode{playerBulletSlotArray}.
 Writing a \icode{00} to the bullet's position in the array has the immediate effect of killing it off
 and creating a slot for a new bullet for the player to fire.
 

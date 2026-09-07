@@ -56,7 +56,7 @@ Notice how we could break each of these halves of the manouevre equally again. E
 its halfway point in the very middle. 
 
 Of course, as we must expect by now, a sequence like this must be governed by a data structure.
-This is provided by \icode{mantaFlipFromLeftToRight} which we give below. The main body of this
+This is provided by \fcode{mantaFlipFromLeftToRight} which we give below. The main body of this
 structure is, as we would expect, the sequence of sprite values that make up the frames of the
 animation.
 
@@ -97,7 +97,7 @@ rendered over the surface of a dreadnought.
 \vspace{-0.5cm}
 
 Perhaps it is not immediately obvious? Pay attention to the behaviour of the shadows below the manta.
-It might be easier to notice the effect if we zoom into the \icode{flip}.
+It might be easier to notice the effect if we zoom into the \fcode{flip}.
 
 \begin{figure}[H]
     \centering
@@ -135,8 +135,8 @@ its shadow gets closer.
 \vspace{-0.5cm}
 
 Underlying this effect is an array of offsets, each one paired with a frame in the animation. And like the
-animation in \icode{mantaFlipFromLeftToRight}, this array is designed to be read from the end. This means
-we can use the same index we use to read in sprite frames from \icode{mantaFlipFromLeftToRight} to read in the 
+animation in \fcode{mantaFlipFromLeftToRight}, this array is designed to be read from the end. This means
+we can use the same index we use to read in sprite frames from \fcode{mantaFlipFromLeftToRight} to read in the 
 the appropriate offset to add to the position of the sprite's shadow.
 
 The array is given below. Interesting to note is the way the movement of the shadow is designed to speed up and
@@ -152,13 +152,13 @@ This naturalistic movement is emblematic of the kind of deep consideration this 
 has serious thought been given to conveying the vertical movement of the player's ship, but the game has found a way
 of expressing the acceleration and deceleration that would be inherent to a flip and roll of this sort.
 
-On the opposite page we can seehow all of this, the \icode{mantaFlipFromLeftToRight} animation data structure, 
-plus the \icode{mantaShadowOffsets} array, come together in a short routine that combines them both to fetch a
+On the opposite page we can seehow all of this, the \fcode{mantaFlipFromLeftToRight} animation data structure, 
+plus the \fcode{mantaShadowOffsets} array, come together in a short routine that combines them both to fetch a
 new frame of the animation and update the position and appearance of the  manta and shadow sprites as appropriate.
 
 Note how there are two things determining whether we should draw a new frame of the animation. The first is
-\icode{mantaState} which, if an animation is active, will have its top bit set (e.g. \icode{\$80}, making it 
-a negative value). The second is the \icode{frameRate}: since this routine may be visited dozens of times a
+\fcode{mantaState} which, if an animation is active, will have its top bit set (e.g. \icode{\$80}, making it 
+a negative value). The second is the \fcode{frameRate}: since this routine may be visited dozens of times a
 second it will only ever need to do anything new once the current frame of the animation has been displayed
 for a long enough period.
 
@@ -283,7 +283,7 @@ bounding box (\icode{\$81}) when the manta becomes narrow on the vertical axis.
 \vspace{-0.5cm}
 
 The full collision detection routine is given opposite and you can see how extensive it has to be - it is almost as verbose
-as the animation routine on the previous page. It utilizes the \icode{mantaDimensionHintsArray} to decide which of the left,
+as the animation routine on the previous page. It utilizes the \fcode{mantaDimensionHintsArray} to decide which of the left,
 right, top, and bottom sides of the manta to check for surface furniture that will destroy the player's ship if they collide
 with it. One of its few economies lies in the way it checks for destructive objects: any that are defined with a character code
 less than \icode{\$90} are by definition lethal to the manta. 

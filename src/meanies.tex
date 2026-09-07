@@ -97,15 +97,15 @@ But our enemies don't appear singly, rather they enter in formations. And it is 
 and distinctive behaviour of these enemy formations that makes them interesting.
 
 We define these formations with a data structure that contains slots for a maximum of 6 enemies.
-For each enemy in the formation we specify an initial vertical position on the screen (\icode{Initial Y})
-and a movemement plan (\icode{Movement}). These movement plans are elaborate enough to require their
+For each enemy in the formation we specify an initial vertical position on the screen (\fcode{Initial Y})
+and a movemement plan (\fcode{Movement}). These movement plans are elaborate enough to require their
 own chapter, so we will cover them in detail in the next section. Here we will just look at the remaining
 detail in the data structure that defines the formation's initial configuration. 
 
 We don't need to define an initial horizontal position for each enemy in the formation individually. What
-we do instead is describe the initial position for the formation as a whole (\icode{Initial X}) and the number
-of ticks that must elapse before we introduce (and start moving) the next enemy in the formation (\icode{Spawn Delay}).
-Finally, we nominate the sprite that will be used for the formation (\icode{Sprite}).
+we do instead is describe the initial position for the formation as a whole (\fcode{Initial X}) and the number
+of ticks that must elapse before we introduce (and start moving) the next enemy in the formation (\fcode{Spawn Delay}).
+Finally, we nominate the sprite that will be used for the formation (\fcode{Sprite}).
 
 Let's take a look at how the very first formation we face in Level One is defined:
 
@@ -145,9 +145,9 @@ Let's take a look at how the very first formation we face in Level One is define
 Notice that we define only 5 of the 6 possible enemies. Notice also the order in which the enemies
 are defined. They are not given in order of their top-down or bottom-up appearance, instead we mix up their vertical
 order in the slots. We do this to give them a ragged horizontal position in the formation. Because
-we will display \icode{Enemy 5} first, it will be the formation leader. It happens to be at the bottom. \icode{Enemy 4}
-is second from top so it will appear after the leader and its \icode{Initial Y} position makes it second from top. Its
-lag position behind the leader is determined by \icode{Spawn Delay}. We continue doing this for each member of the formation
+we will display \fcode{Enemy 5} first, it will be the formation leader. It happens to be at the bottom. \fcode{Enemy 4}
+is second from top so it will appear after the leader and its \fcode{Initial Y} position makes it second from top. Its
+lag position behind the leader is determined by \fcode{Spawn Delay}. We continue doing this for each member of the formation
 and the result is the pair of diagonal configurations that give the formation its character.
 
 \clearpage
@@ -276,9 +276,9 @@ and the result is the pair of diagonal configurations that give the formation it
 \clearpage
 
 Here is another example, with a slightly different configuration. This time the enemies start
-in a true diagonal formation. Notice how we have reused the \icode{Initial Y} values from the
+in a true diagonal formation. Notice how we have reused the \fcode{Initial Y} values from the
 previous formation we examined, but the order in which they are assigned to the enemies is
-different. Notice also how the slight increase in \icode{Spawn Delay} results in a slightly
+different. Notice also how the slight increase in \fcode{Spawn Delay} results in a slightly
 greater horizontal distance between each enemy.
 
 \vspace{-1.0cm}

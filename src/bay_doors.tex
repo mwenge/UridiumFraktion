@@ -83,13 +83,13 @@ a single color, and a '\icode{1}' bit indicates a pixel while a '\icode{0}' bit 
 This allows much greater granularity in the definition of the doors as they open - enabling the
 'teeth' of the doors to be defined to a single pixel level. The diagrams on the right hand side show
 how the bay door sprite is placed relative to the rest of the dropship. As we can see the bay door sprite occludes the
-landing deck below, because it is drawn after it in the order we defined in \icode{loPtrsToDropShipSections} in the previous
+landing deck below, because it is drawn after it in the order we defined in \fcode{loPtrsToDropShipSections} in the previous
 chapter.
 
 The switch that enables the pixel-grained rendering of the sprites is defined in the section array for the door (highlighted
 with exclamation marks below). Because Multi-Color mode is turned off for the sprite every '\icode{1}'
 bit in the definition is treated as a single pixel. Notice also that the X and Y position of the sprite are the
-same as the \icode{landingDeckSection} we looked at earlier - because we are drawing over it in order to cover
+same as the \fcode{landingDeckSection} we looked at earlier - because we are drawing over it in order to cover
 the deck completely with the closed bay door.
 
 \begin{lstlisting}[escapechar=\%]
@@ -133,8 +133,8 @@ OpenBayDoorsLoop
   BCC OpenBayDoorsLoop     ; If not, keep looping.
 \end{lstlisting}
 
-The full effect of this procedure is given again below, showing us paint the closed dropship door (\icode{DROPSHIP\_7})
-all the way up to the door when fully open (\icode{DROPSHIP\_11}):
+The full effect of this procedure is given again below, showing us paint the closed dropship door (\fcode{DROPSHIP\_7})
+all the way up to the door when fully open (\fcode{DROPSHIP\_11}):
 
 \raisebox{-0.2\totalheight}{\includegraphics[height=1.5cm]{src/baydoor_sprites/baydoor_animation_7.png}}
 \hspace{0.1cm}
@@ -147,7 +147,7 @@ all the way up to the door when fully open (\icode{DROPSHIP\_11}):
 \raisebox{-0.2\totalheight}{\includegraphics[height=1.5cm]{src/baydoor_sprites/baydoor_animation_11.png}}
 
 Once the bay doors have opened. The Manta can emerge. To achieve this we replace the sprite used for the bay door
-(defined in \icode{bayDoorSection}) with a new definition we call \icode{mantaTakingOff}. Notice that the 'index'
+(defined in \fcode{bayDoorSection}) with a new definition we call \fcode{mantaTakingOff}. Notice that the 'index'
 of \icode{'06'} is the same in this definition but we change sprite we're referencing with the Manta's sprite, as well as enabling
 multi-color mode to ensure we draw the Manta correctly. 'Replacing' the bay door in this way ensure that it occurs
 in the same position as the doors in relation to the other objects, i.e. above the landing deck but below the rest of the 
@@ -168,8 +168,8 @@ mantaTakingOff
   .BYTE %\raisebox{-0.2\totalheight}{\includegraphics[height=0.4cm]{src/baydoor_sprites/manta_animation_sprite.png}}%      ; Sprite Value ($59).
 \end{lstlisting}
 
-To swap out \icode{bayDoorSection} with \icode{mantaTakingOff} we must load \icode{mantaTakingOff} into memory. The fact that
-it has the same index of \icode{'06'} ensures that we replace \icode{bayDoorSection}:
+To swap out \fcode{bayDoorSection} with \fcode{mantaTakingOff} we must load \fcode{mantaTakingOff} into memory. The fact that
+it has the same index of \icode{'06'} ensures that we replace \fcode{bayDoorSection}:
 \begin{lstlisting}
   ; Replace the bay door sprite with the manta sprite.
   JSR CheckInputAndWait

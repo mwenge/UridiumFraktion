@@ -86,7 +86,7 @@ it has disappeared after striking an enemy), it has to decide whether to award a
 the player, and then
 finally it must set the explosion in train. The two main elements of this last task are to 
 designate the new 'active' function for the meanie (to the self-explanatory
-\icode{AnimateEnemyExplosion}) and to specify the new sprite for the
+\fcode{AnimateEnemyExplosion}) and to specify the new sprite for the
 meanie, which in this case will be the first frame of the explosion sequence, sprite \icode{\$14}
 which we can see on the top left of the opposite page.
 
@@ -126,7 +126,7 @@ InitiateMeanieExplosion
   JMP UpdateEnemyContentAndPosition  ; Display our updates to the meanie.
 \end{lstlisting}
 
-The routine we have now designated for governing the sprite's behaviour, \icode{Animate\-EnemyExplosion},
+The routine we have now designated for governing the sprite's behaviour, \fcode{Animate\-EnemyExplosion},
 takes care of the relatively simple task of incrementing the sprite value for the meanie from \icode{\$14}
 all the way up to \icode{\$1D}. It does this by incrementing it using a rate limiter to control the
 pace at which the blast happens. Notice that it also ensures the exploding enemy continues to gravitate
@@ -197,7 +197,7 @@ As always it is easier to visualize this effect than describe it, so below we sh
 On the left we have eight separate explosion sequences, each running in parallel but at slightly different stages
 of detonation. Those to the left of the picture are further advanced than those to the right. You will notice that each blast
 has been dithered at random from it's centre along both the horizontal and vertical axis. On the right hand side we
-see the result of compositing all eight of these explosions together. To any player of \icode{Uridium} this will look 
+see the result of compositing all eight of these explosions together. To any player of \textit{Uridium} this will look 
 more familiar: the manta's explosion is all eight explosions rolled together into a pulsing ball of fire.
 
 
@@ -316,18 +316,18 @@ that we advance a new member is added until all 8 slots are filled.
 \end{figure}
 \vspace{-0.4cm}
 At this point we finally have an explosion sequence active for all 8 sprites. Until now, while the
-\icode{frameCounter} in the routine opposite was still greater than \icode{-1}, we ran the
-code in \icode{AddNewMemberToSequence} to add a new member to the sequence. Notice how for
+\fcode{frameCounter} in the routine opposite was still greater than \icode{-1}, we ran the
+code in \fcode{AddNewMemberToSequence} to add a new member to the sequence. Notice how for
 each member that we added we also calculated a random dither for its horizontal and vertical
 position. It carries over this position to every subsequent frame of the animation.
 
-From this point onwards, each iteration of the loop only has to run the code in \icode{AnimateNextFrame}.
+From this point onwards, each iteration of the loop only has to run the code in \fcode{AnimateNextFrame}.
 This segment of the routine contains a nested loop that updates each of the eight sprites to advance them to the next frame
 in the 11 sprite sequence that defines a single explosion. It becomes clear as this animation advances
 that the clustered burst has already reached its apex and is already en route to dissipating completely.
 
-\icode{MantaExplosionLoop} will keep iterating until all eight members of the sequence have been exhausted. This is
-precalculated as a total of 21 frames since the \icode{frame\-Counter} starts at 6 and \icode{MantaExplosionLoop} will
+\fcode{MantaExplosionLoop} will keep iterating until all eight members of the sequence have been exhausted. This is
+precalculated as a total of 21 frames since the \fcode{frame\-Counter} starts at 6 and \fcode{MantaExplosionLoop} will
 exit when it reaches -15.
 
 \begin{figure}[H]

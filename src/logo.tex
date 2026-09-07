@@ -655,13 +655,13 @@ The final element in the cycle is the name of the current level.
 \hspace{-0.2cm}
 
 And after that, we go back to the beginning. This in-game status cycle is managed by the routine opposite, specifically the top half.
-This decides which of the above four elements to display based on a combination of the value in \icode{currentBannerState} and 
+This decides which of the above four elements to display based on a combination of the value in \fcode{currentBannerState} and 
 whether we are paused, in demo mode, or actually playing a game. The routine contains a number of little micro-routines, each 
 responsible for displaying one of the elements. To help you identify, which micro-routine does what I've added a graphic of its
 area of responsibility next to it in the comments.
 
 But there's a second section to the routine that also manages the status line when we're in attract mode, in other words, when
-we're on the title screen. This is \icode{Update\-Attract\-ModeStatus}. This segment of the routine updates the status line
+we're on the title screen. This is \fcode{Update\-Attract\-ModeStatus}. This segment of the routine updates the status line
 depending on the input and player configuration the player has currently selected. Since no level is being played, this information
 is what it will display in the absence of a level name to offer.
 
@@ -1143,8 +1143,8 @@ The last, and most common configuration, is one player and one joystick - which 
 \raisebox{-0.25\totalheight}{\includegraphics[height=0.70cm]{src/composite_character_sets/c64_ltgreen_c64_green_00_outlined.png}}
 \hspace{-0.2cm}
 
-This selection is managed by the value in \icode{playerAndJoystickMode}. In \icode{Update\-Attract\-ModeStatus} opposite we can see
-that this value is used as an index into an array \icode{gameConfigLoPtrArray}. This array provides addresses into each of the
+This selection is managed by the value in \fcode{playerAndJoystickMode}. In \fcode{Update\-Attract\-ModeStatus} opposite we can see
+that this value is used as an index into an array \fcode{gameConfigLoPtrArray}. This array provides addresses into each of the
 data definitions for the three lines above.
 
 
@@ -1371,7 +1371,7 @@ inGameTwoPlayersOneJoystickDisplay
   .TEXT "     ", $55, $55, "       ", $56, $FF    ; 2 players, 1 joystick.
 \end{lstlisting}
 
-In the \icode{WriteToScreen} routine opposite we see how these lines are consumed. This routine is
+In the \fcode{WriteToScreen} routine opposite we see how these lines are consumed. This routine is
 the one referenced repeatedly on the previous page. Given any string of character data with a Y and X
 position specified at its head, it will faithfully write them to screen.
 

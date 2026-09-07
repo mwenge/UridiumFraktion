@@ -8,7 +8,7 @@ to succeed where so many others of the era failed? Surely there's no avoiding th
 business of moving a full screen of pixels, one at a time, to give the player the impression of effortless
 movement back and forth across the surface of the enemy dreadnought? What if instead of trying to move a pixel
 at a time we instead devised a method of displaying \textit{any} arbitrary position on the surface? What, if instead
-of scrolling, we could \icode{skip} to any location on the playfield? Surely this would also be too much work?
+of scrolling, we could \fcode{skip} to any location on the playfield? Surely this would also be too much work?
 
 Like so many other problems in computer science, we can solve this one through a process of
 'divide and conquer'. First, we can treat our playfield, which is 512 characters wide, as consisting
@@ -47,8 +47,8 @@ segment, we will need a second counter, one that will always tell us which exact
 we have scrolled and which alway be a value which will always be between \icode{0} and \icode{256}.
 
 With two counters to keep track of our position on the playfield, one for telling us which scroll segment
-we're in (which we'll call \icode{segment}) and the other for telling us which pixel in the segment (which
-we'll call \icode{pixelX}), we have a mechanism for unlocking the ability to snap to any place in the map
+we're in (which we'll call \fcode{segment}) and the other for telling us which pixel in the segment (which
+we'll call \fcode{pixelX}), we have a mechanism for unlocking the ability to snap to any place in the map
 regardless of our current position. This means that we can increment these counters by values of our choosing
 and achieve accelerated movement across the field of play when we desire it.
 
@@ -81,9 +81,9 @@ How this might work in practice is illustrated by the dials below.
 \end{figure}
 \vspace{-0.4cm}
 
-Here we are currently in \icode{segment} 5 and incrementing our position within the segment, \icode{pixelX},
+Here we are currently in \fcode{segment} 5 and incrementing our position within the segment, \fcode{pixelX},
 by 10 each time. On the third increment we pass around the top of the clock and restart at zero. So an increment
-of 10 from 250 brings us past 255, through 0 and up to 4. Crucially, when this happens the value for \icode{segment} is incremented
+of 10 from 250 brings us past 255, through 0 and up to 4. Crucially, when this happens the value for \fcode{segment} is incremented
 from 5 to 6. So an increment of 10 has moved us from pixel position 250 in segment 5:
 
 \begin{figure}[H]
@@ -132,7 +132,7 @@ from right to left, so the dials are moving in the opposite direction.
 \end{figure}
 \vspace{-0.4cm}
 
-In this example we are starting in \icode{segment} 4 at position 54 within the segment:
+In this example we are starting in \fcode{segment} 4 at position 54 within the segment:
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,left}
       \includegraphics{src/scrolling/segments/10_scroll_segments_4_selected.png}%
@@ -140,9 +140,9 @@ In this example we are starting in \icode{segment} 4 at position 54 within the s
 \end{figure}
 \vspace{-0.4cm}
 
-Our first three decrements of \icode{pixelX} have no effect on our segment position. But succesively
-decrementing our \icode{pixelX} value until it wraps around past zero eventually also decrements
-our \icode{segment} position by 1, moving us into \icode{segment} 3:
+Our first three decrements of \fcode{pixelX} have no effect on our segment position. But succesively
+decrementing our \fcode{pixelX} value until it wraps around past zero eventually also decrements
+our \fcode{segment} position by 1, moving us into \fcode{segment} 3:
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,left}
       \includegraphics{src/scrolling/segments/10_scroll_segments_3_selected.png}%
@@ -150,7 +150,7 @@ our \icode{segment} position by 1, moving us into \icode{segment} 3:
 \end{figure}
 \vspace{-0.4cm}
 
-When we apply \icode{pixelX}, which now has a value of 214 according to our dials, we end up displaying
+When we apply \fcode{pixelX}, which now has a value of 214 according to our dials, we end up displaying
 the screen at the following position. Notice how the position being calculated by the dials is the leftmost
 position of the frame. Although our calculation position is in segment 3, the majority of the screen real estate
 is occupied by segment 4:
@@ -163,8 +163,8 @@ is occupied by segment 4:
 \vspace{-0.4cm}
 
 The implementation of this lockstep, or gear-like, mechanism for incrementing and decrementing
-our \icode{pixelX} and \icode{segment} is the relatively compact code contained in the
-routine \icode{UpdateSegmentAndPixelX} given opposite.
+our \fcode{pixelX} and \fcode{segment} is the relatively compact code contained in the
+routine \fcode{UpdateSegmentAndPixelX} given opposite.
 
 
 \begin{wrapfigure}[5]{r}{3cm} % <==========================================
@@ -173,20 +173,20 @@ routine \icode{UpdateSegmentAndPixelX} given opposite.
       \includegraphics{src/scrolling/mantaDirectionAndSpeed.png}%
     \end{adjustbox}
 \end{wrapfigure}
-You'll notice that the operator used to move the dials is a variable called \icode{manta\-Direction\-AndSpeed}.
+You'll notice that the operator used to move the dials is a variable called \fcode{manta\-Direction\-AndSpeed}.
 This parameter not only tells us the rate at which the manta is moving but the direction in which it is moving,
-whether left or right. Like \icode{pixelX}, it has 256 possible values but in this case we treat any value over 127
+whether left or right. Like \fcode{pixelX}, it has 256 possible values but in this case we treat any value over 127
 as though it is negative, so it's actual range is from -127 to 127. Thus, any value between 0 and 127 is treated as the
 player's velocity in a leftward direction while any value between -127 and 0 is treated as their velocity in the rightward
 direction. 
 
 Using negative values to move right and positive values to move left is counterintuitive, but it is part of the trick
-that the routine achieves is to use \icode{mantaDirectionAndSpeed} to update \icode{pixelX} and detect when the dial
-has moved past zero and increment or decrement \icode{segment} when required. This relies on the behaviour of setting
-the 6502 processor's \textit{carry bit} when applying \icode{mantaDirectionAndSpeed} to our \icode{pixelX} value. This
-\textit{carry bit} is the latch that triggers our value for \icode{segment} to move up and down as appropriate.
+that the routine achieves is to use \fcode{mantaDirectionAndSpeed} to update \fcode{pixelX} and detect when the dial
+has moved past zero and increment or decrement \fcode{segment} when required. This relies on the behaviour of setting
+the 6502 processor's \textit{carry bit} when applying \fcode{mantaDirectionAndSpeed} to our \fcode{pixelX} value. This
+\textit{carry bit} is the latch that triggers our value for \fcode{segment} to move up and down as appropriate.
 
-Up to now we haven't worried too much about how we can turn \icode{pixelX}, or \icode{segment}, into memory addresses
+Up to now we haven't worried too much about how we can turn \fcode{pixelX}, or \fcode{segment}, into memory addresses
 that give us the exact position on the playfield that they refer to. We do however get a first inkling that something
 of this nature is required 
 \begin{wrapfigure}[6]{l}{4.3cm} % <==========================================
@@ -195,8 +195,8 @@ of this nature is required
       \includegraphics{src/scrolling/pixelX.png}%
     \end{adjustbox}
 \end{wrapfigure}
-when we see what is happening in the \icode{UpdatePixelsToScroll} paragraph opposite. We
-extract the last three bits (in purple) and store them in \icode{pixelsToScroll}. This value, which will be between
+when we see what is happening in the \fcode{UpdatePixelsToScroll} paragraph opposite. We
+extract the last three bits (in purple) and store them in \fcode{pixelsToScroll}. This value, which will be between
 0 and 8, is what gives us the pixel-level precision for the scroll.
 
 \vspace*{\fill}
@@ -257,12 +257,12 @@ ScrollLeft
 \vspace*{\fill}
 \clearpage
 The remaining bits (in green) are what we will use
-to calculate which of the 32 characters in the \icode{segment} we are at, our memory
-position within the scroll \icode{segment}. The trick will be
-turning this number, such as '26', into an offset in the \icode{segment} address.
+to calculate which of the 32 characters in the \fcode{segment} we are at, our memory
+position within the scroll \fcode{segment}. The trick will be
+turning this number, such as '26', into an offset in the \fcode{segment} address.
 
 Before we see how we do this, let's take stock of the mapping we want to perform. With our playfield
-split into 16 segments we want to be able to take a \icode{segment} value and map it to memory
+split into 16 segments we want to be able to take a \fcode{segment} value and map it to memory
 addresses within the playfield as follows:
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,center}
@@ -271,9 +271,9 @@ addresses within the playfield as follows:
 \end{figure}
 \vspace{-0.4cm}
 
-We can think of each address above as representing the memory address for the top left of each \icode{segment}.
-We then need to take the top 5 'green' bits of \icode{pixelX} and convert that into a memory position within the segment.
-So starting with the simplest version of this problem, imagine we have a \icode{segment} value of \icode{\$04} and a \icode{pixelX} value of 0.
+We can think of each address above as representing the memory address for the top left of each \fcode{segment}.
+We then need to take the top 5 'green' bits of \fcode{pixelX} and convert that into a memory position within the segment.
+So starting with the simplest version of this problem, imagine we have a \fcode{segment} value of \icode{\$04} and a \fcode{pixelX} value of 0.
 This means we will want to select the start of segment 4 as our scroll position:
 
 \begin{figure}[H]
@@ -289,19 +289,19 @@ move 5 positions to the left and give us a value of \icode{\$80} (\icode{1000000
 and let the bit wrap around to the front, so that \icode{00000100} wraps around to \icode{10000000}.
 
 This latter approach is the one we take here, and the reason we do this is because our requirements come with an extra complication. 
-We are not just figuring out an address for \icode{segment} by itself. We need to factor in \icode{pixelX} too, more specifically the
-first 5 bits of \icode{pixelX}, which give us an offset between 0 and 32 within the segment.
+We are not just figuring out an address for \fcode{segment} by itself. We need to factor in \fcode{pixelX} too, more specifically the
+first 5 bits of \fcode{pixelX}, which give us an offset between 0 and 32 within the segment.
 
-The way we do this is by loading the last three bits of \icode{pixelX} with a value that will affect the bit shifting behaviour
-of each of the three right shifts that we perform on both \icode{segment} and \icode{pixelX}. We store this updated version of
-\icode{pixelX} in a new value \icode{scrollPositionLoPtr} and also shift it to the right three times. But we use a different method
-for the shifting that takes in the side-effects of the \icode{pixelX} that manipulates its value. The key here is that the \icode{LSR}
-(Logical Shift Right) operation we perform on the \icode{segment} value has a specific side-effect on the \icode{ROR} (Rotate Right) operations
-we perform on \icode{scrollPositionLoPtr}: any time our \icode{LSR} operation pushes a \icode{0} off to the right any '1' bit rotated to the
-right in \icode{scrollPositionLoPtr} is dropped. Any time our \icode{LSR} operation pushes a \icode{1} off to the right, the '1' bits rotated
-off the right in \icode{scrollPositionLoPtr} are preserved and added back on to the front.
+The way we do this is by loading the last three bits of \fcode{pixelX} with a value that will affect the bit shifting behaviour
+of each of the three right shifts that we perform on both \fcode{segment} and \fcode{pixelX}. We store this updated version of
+\fcode{pixelX} in a new value \fcode{scrollPositionLoPtr} and also shift it to the right three times. But we use a different method
+for the shifting that takes in the side-effects of the \fcode{pixelX} that manipulates its value. The key here is that the \icode{LSR}
+(Logical Shift Right) operation we perform on the \fcode{segment} value has a specific side-effect on the \icode{ROR} (Rotate Right) operations
+we perform on \fcode{scrollPositionLoPtr}: any time our \icode{LSR} operation pushes a \icode{0} off to the right any '1' bit rotated to the
+right in \fcode{scrollPositionLoPtr} is dropped. Any time our \icode{LSR} operation pushes a \icode{1} off to the right, the '1' bits rotated
+off the right in \fcode{scrollPositionLoPtr} are preserved and added back on to the front.
 
-When we are done, it is \icode{scrollPositionLoPtr} that will have the value we desire: the memory address for the offset within the
+When we are done, it is \fcode{scrollPositionLoPtr} that will have the value we desire: the memory address for the offset within the
 segment that we need to scroll to. As you can see in the table below we give the full sequence of operations for example and end
 up with the desired value of \icode{\$80}, having started from a segment value of \icode{\$04}:
 
@@ -312,7 +312,7 @@ up with the desired value of \icode{\$80}, having started from a segment value o
     \begin{adjustbox}{width=11cm,center}
       \begin{tabular}{lcc}
         \toprule
-        Instruction & Accumulator & \icode{scrollPositionLoPtr} \\
+        Instruction & Accumulator & \fcode{scrollPositionLoPtr} \\
         \midrule
         \icode{LDA pixelX} & \icode{00000000} (00)  & \icode{00000000} (\icode{\$00}) \\
         \icode{CLC} & \icode{00000000} (00)  & \icode{00000000} (\icode{\$00}) \\
@@ -337,9 +337,9 @@ up with the desired value of \icode{\$80}, having started from a segment value o
 \end{figure}
 \vspace{-0.4cm}
 
-Returning to our earlier example where we had a \icode{segment} value of \icode{\$03} and a \icode{pixelX} value
+Returning to our earlier example where we had a \fcode{segment} value of \icode{\$03} and a \fcode{pixelX} value
 of 214 (\icode{\$D6} in hex). We can follow the process again below. This time we can see that the '1' bits shifted off
-to the right from our \icode{segment} value in the accumulator are allowing the '1' bits rotated off \icode{scrollPositionLoPtr}
+to the right from our \fcode{segment} value in the accumulator are allowing the '1' bits rotated off \fcode{scrollPositionLoPtr}
 to be preserved:
 
 \begin{figure}[H]
@@ -383,7 +383,7 @@ Our end result is \icode{\$7B}, which  gives us a memory address of \icode{\$827
 \end{figure}
 \vspace{-0.4cm}
 We've reproduced the routine that the table above refers to opposite. This is the first half
-of the \icode{ScrollShipSurface} and it has achieved its most important function: figuring
+of the \fcode{ScrollShipSurface} and it has achieved its most important function: figuring
 out the address of the section of the playfield to display.
 
 
@@ -455,14 +455,14 @@ Glancing through the routine opposite it should be possible for you to see that 
 the screen in step-wise fashion starting at the top left, and working across and down. So
 in our example where we have selected a memory address of \icode{\$827B} as the top left position
 of the playfield to start our drawing from, we begin by drawing the first character in 
-\icode{DrawNextCharacter}:
+\fcode{DrawNextCharacter}:
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,left}
       \includegraphics{src/scrolling/drawing/10_diagram_3_1_1_diagram.png}%
     \end{adjustbox}
 \end{figure}
 \vspace{-0.8cm}
-We then continue looping in \icode{DrawNextCharacter} drawing another character:
+We then continue looping in \fcode{DrawNextCharacter} drawing another character:
 
 \begin{figure}[H]
     \begin{adjustbox}{width=13.3cm,left}
@@ -487,7 +487,7 @@ Until the whole line is filled:
 \end{figure}
 \vspace{-0.8cm}
 
-We then move to the next line by jumping back to \icode{DrawRows} and drawing
+We then move to the next line by jumping back to \fcode{DrawRows} and drawing
 another line below it. Notice that as our playfield is 512 bytes wide, the
 start address of the line has incremented from \icode{\$827B} to \icode{\$847B}:
 
@@ -592,7 +592,7 @@ Until finally we have a full screen:
 \vspace{-0.4cm}
 
 And with that we have successully achieved a frame of 'scroll' by feeding our
-routine an arbitrary \icode{segment} and \icode{pixelX} value. The entire process
+routine an arbitrary \fcode{segment} and \fcode{pixelX} value. The entire process
 is so compact and efficient that calling this many times per second is possible,
 and so enables the silky smooth (and rapid) scrolling that is the hallmark of
 \textit{Uridium}.

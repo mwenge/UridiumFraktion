@@ -31,10 +31,10 @@ that the light source is consistent for both.
     \end{adjustbox}
 \end{figure}
 \vspace{-0.4cm}
-This manta's shadow is drawn rather economically inside a clause called \icode{DrawManta\-AnimationFrame}
+This manta's shadow is drawn rather economically inside a clause called \fcode{DrawManta\-AnimationFrame}
 nested inside the routine for animating the Manta ship. The procedure consists of drawing the Manta
 ship first, followed by drawing the shadow at an X and Y offset to the ship's position given by
-\icode{mantaShadowOffset}. The Y offset is obtained by dividing \icode{mantaShadowOffset} by 2. No division
+\fcode{mantaShadowOffset}. The Y offset is obtained by dividing \fcode{mantaShadowOffset} by 2. No division
 is necessary for the X offset.
 
 \begin{lstlisting}
@@ -99,13 +99,13 @@ The final noteworthy use of the shadow is when the Manta is landing on the dread
 each level. We want to create the illusion of the Manta lowering onto the surface. Strictly speaking, this would require
 us to make the Manta gradually smaller as it moves further away from the perspective of the player onto the deck. There is
 no need for this kind of complexity though. Instead, it will suffice to use movement of the shadow to achieve the desired effect. We have
-already seen how \icode{mantaShadowOffset} is used to calculate the horizontal and vertical position of the shadow in relation
+already seen how \fcode{mantaShadowOffset} is used to calculate the horizontal and vertical position of the shadow in relation
 to the Manta. If we gradually reduce this offset from its initial value of \icode{19} to some lower value, and recalculate the
 position of the shadow at each turn, we can create the impression that the player's ship is slowly lowering to the surface.
 
 The code that implements this is compact enough to reproduce in full. It is a tight loop that updates and displays
 the Manta and its shadow at each turn. We use a frame rate variable to limit the speed at which the Manta is lowered
-onto the deck. When we are ready to lower another notch we decrement \icode{mantaShadowOffset} once more and keep looping
+onto the deck. When we are ready to lower another notch we decrement \fcode{mantaShadowOffset} once more and keep looping
 until the offset has reached a value of \icode{6}.
 \begin{lstlisting}
 MantaLandingLoop   
@@ -122,11 +122,11 @@ MantaLandingLoop
 \end{lstlisting}
 
 If we set out the appearance of the manta and its shadow at each iteration of this loop, along with the value of 
-\icode{mantaShadowOffset}, we can see how the effect is achieved. One thing worth noting is that decrementing
-\icode{mantaShadowOffset} results in sort of lockstep progress where the shadow moves first left and then up. This
-is because the vertical position is calculated by dividing \icode{mantaShadowOffset} by 2: for odd values of
-\icode{mantaShadowOffset} this will result in a clamped value that is the same as the previous even value of
-\icode{mantaShadowOffset}.
+\fcode{mantaShadowOffset}, we can see how the effect is achieved. One thing worth noting is that decrementing
+\fcode{mantaShadowOffset} results in sort of lockstep progress where the shadow moves first left and then up. This
+is because the vertical position is calculated by dividing \fcode{mantaShadowOffset} by 2: for odd values of
+\fcode{mantaShadowOffset} this will result in a clamped value that is the same as the previous even value of
+\fcode{mantaShadowOffset}.
 \begin{figure}[H]
     \begin{adjustbox}{width=11cm,center}
       \includegraphics{src/shadow/landing_sequence_large.png}%

@@ -158,12 +158,12 @@ fact that the first frame in RAM is not a manta sitting flush to our point of vi
 
 Let's take a look at how it is implemented in the routine responsible
 for animating the spinning manta. It's thankfully very compact and easy to digest.
-We would expect it to iterate over the sprites from \icode{MANTA\_0} to \icode{MANTA\_15}, which is 
+We would expect it to iterate over the sprites from \fcode{MANTA\_0} to \fcode{MANTA\_15}, which is 
 exactly what it does - as we noted, all that matters to it is that the sprites are ordered
-contiguously in RAM. Selecting the next sprite for preparation (\icode{GetCurrentSprite})
-and display (\icode{DisplaySprite}) is a simple matter of incrementing the index
-\icode{currentSpriteValue} that points to the current sprite until we reach \icode{MANTA\_16}, 
-at which point we reset our \icode{currentSpriteValue} back to \icode{MANTA\_0}.
+contiguously in RAM. Selecting the next sprite for preparation (\fcode{GetCurrentSprite})
+and display (\fcode{DisplaySprite}) is a simple matter of incrementing the index
+\fcode{currentSpriteValue} that points to the current sprite until we reach \fcode{MANTA\_16}, 
+at which point we reset our \fcode{currentSpriteValue} back to \fcode{MANTA\_0}.
 
 \begin{lstlisting}
 SpinningShipLoop
@@ -222,21 +222,21 @@ Repeat
 }
 
 But there is one complication we haven't yet accounted for: how does the animation ensure
-that when \icode{frameCount} has reached zero, and the animation is over, that we finish with
+that when \fcode{frameCount} has reached zero, and the animation is over, that we finish with
 the Manta facing upwards:
 \raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA1.png}}?
-The answer lies in the initial value that we set for \icode{frameCount}. This is \icode{\$BF} or 191
+The answer lies in the initial value that we set for \fcode{frameCount}. This is \icode{\$BF} or 191
 in decimal: 
 \begin{lstlisting}
     LDA #$BF         ; Store 191 in the A register.
     STA frameCount   ; Store it as our frameCount.
 \end{lstlisting}
-A starting value of 191 for \icode{frameCount} gives us 65 keyframes of animation in total until
+A starting value of 191 for \fcode{frameCount} gives us 65 keyframes of animation in total until
 we reach 256 and roll around, like a clock, back to zero. With 16 frames for each complete spin of the Manta
-this allows us 4 complete spins (64 frames) with one left over before \icode{frameCount} will roll over to
-zero. It is this left over frame that will push us past \icode{MANTA\_00} -  
+this allows us 4 complete spins (64 frames) with one left over before \fcode{frameCount} will roll over to
+zero. It is this left over frame that will push us past \fcode{MANTA\_00} -  
 \raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA.png}}
-- and finish at the desired spot of \icode{MANTA\_1} - 
+- and finish at the desired spot of \fcode{MANTA\_1} - 
 \raisebox{-0.2\totalheight}{\includegraphics[height=0.5cm]{src/manta_spin/MANTA1.png}}.
 
 The Manta does not only spin on its axis when travelling from left to right. The effect is also 

@@ -647,7 +647,7 @@ halves.
 \vspace{-0.4cm}
 
 Part of the trick here is to treat the top left character definition as the one that tells us we want to render a four-character
-glyph. As we can see from inspecting the \icode{WriteCharacterToScreen} routine, any definition between \icode{\$3A} and \icode{\$59}
+glyph. As we can see from inspecting the \fcode{WriteCharacterToScreen} routine, any definition between \icode{\$3A} and \icode{\$59}
 is treated as containing a four-character glyph. Determining the top right half of the glyph means adding a fixed offset of \icode{\$20}
 to it (giving \euro{CHAR/5A} from \euro{CHAR/3A} in our example), while the lower halves are obtained by adding a fixed offset of \icode{\$80} (giving
 \euro{CHAR/BA} and \euro{CHAR/DA} respectively).

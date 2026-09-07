@@ -169,7 +169,7 @@ left in the wake of our three column-wide destruction.
 \vspace{-0.4cm}
 
 The routine that implements this process is given below,
-\icode{DisintegrateDreadnought}. Each time it's called it draws the edge of
+\fcode{DisintegrateDreadnought}. Each time it's called it draws the edge of
 destruction across the current position on the surface and then advances its pointers
 to the next position in wait for the next time it's invoked.
 Notice how the routine is careful to avoid destroying empty space. For each of the
@@ -264,7 +264,7 @@ Skip
   RTS                        ; We're done destroying the column.
 \end{lstlisting}
 
-With this we can advance the wave inexorably, calling \icode{DisintegrateDreadnought}
+With this we can advance the wave inexorably, calling \fcode{DisintegrateDreadnought}
 as we scroll across the screen, eating up the surface below.
 
 \begin{figure}[H]

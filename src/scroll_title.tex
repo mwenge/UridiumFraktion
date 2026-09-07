@@ -199,7 +199,7 @@ AddTrailingSpace
   RTS
 \end{lstlisting}
 from a properly encoded message. By 'properly encoded' we mean a message that
-will reference the appropriate offset in \icode{fontData} for each constituent
+will reference the appropriate offset in \fcode{fontData} for each constituent
 letter. The message used by \textit{Uridium} runs as follows:
 
 
@@ -213,15 +213,15 @@ scrollingMessage
   .BYTE $FF,$FF,$FF,$FF                             ; End of Message Bytes
 \end{lstlisting}
 
-As we can see from a careful reading of \icode{CreateSurfaceDataFromMessage} each
-letter is encoded as index into a separate index table called \icode{indexesToFontData}.
-This table tells us the position we will find each letter in our \icode{fontData}.
+As we can see from a careful reading of \fcode{CreateSurfaceDataFromMessage} each
+letter is encoded as index into a separate index table called \fcode{indexesToFontData}.
+This table tells us the position we will find each letter in our \fcode{fontData}.
 
 For example, for the numeral 2 (
 \raisebox{-0.25\totalheight}{\includegraphics[height=0.35cm]{src/scroller_title/glyphs/glyph_2.png}}
 )
 the encoding is \icode{\$02}. This means we should look at entry three
-in \icode{indexesToFontData} (entry 3, because we're counting from zero).
+in \fcode{indexesToFontData} (entry 3, because we're counting from zero).
 
 \begin{lstlisting}
 indexesToFontData
@@ -233,7 +233,7 @@ indexesToFontData
   .BYTE $94,$90,$90,$90,$90,$90,$98,$90,$90,$90,$90,$90,$90,$90,$90,$90
 \end{lstlisting}
 
-This retrieves a value of \icode{\$08}. It is that that is the position in \icode{fontData} from which 
+This retrieves a value of \icode{\$08}. It is that that is the position in \fcode{fontData} from which 
 we should read the four bytes that will generate our glyph for the numeral 2. We can see this below,
 at position 8 we find the four bytes \icode{\$43}, \icode{\$25}, \icode{\$25}, and \icode{\$26} that
 concatenate to form our chosen numeral of 2 (

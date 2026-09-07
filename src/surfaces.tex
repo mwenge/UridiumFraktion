@@ -98,11 +98,11 @@ and so on. Using the first 13 bytes from the array above we can see how the bow 
 
 \clearpage
 If you'd like to try to follow in detail how this process was implemented in practice, you can take
-some time to read the routine on the opposite page. Imagine the \icode{DrawSurfaceSections} outer loop
-reading in each byte from \icode{level6Dreadnought\-Data}
-above, looking up the section data that a byte (for example, \icode{\$05}) references, and then observe how the \icode{DrawSectionStrip} inner
+some time to read the routine on the opposite page. Imagine the \fcode{DrawSurfaceSections} outer loop
+reading in each byte from \fcode{level6Dreadnought\-Data}
+above, looking up the section data that a byte (for example, \icode{\$05}) references, and then observe how the \fcode{DrawSectionStrip} inner
 loop processes a piece of section data like \icode{\$05} below to draw it on to the screen.
-\footnote{In the extract opposite, to keep the code legible and fit the routine on a single page I have removed some of the verbose book-keeping that 6502 assembly code requires. For example \icode{CLC} instructions which are sometimes necessary before an addition operation are left out.}.
+\footnote{In the extract opposite, to keep the code legible and fit the routine on a single page I have removed some of the verbose book-keeping that 6502 assembly code requires. For example \fcode{CLC} instructions which are sometimes necessary before an addition operation are left out.}.
 
 \begin{minipage}[c]{0.23\linewidth}
 	\vspace{-0.2cm}
@@ -140,7 +140,7 @@ loop processes a piece of section data like \icode{\$05} below to draw it on to 
 Notice that each strip is drawn from the bottom up. And that we fill in any blank spaces to the top of
 the screen that are left undefined by the strip (such as in strips 1 and 2 above).
 
-Once \icode{DrawSurfaceSections} has run, and processed the entire array of bytes in \icode{level6\-Dreadnought\-Data},
+Once \fcode{DrawSurfaceSections} has run, and processed the entire array of bytes in \fcode{level6\-Dreadnought\-Data},
 we get the following result:
 \begin{figure}[H]
     \begin{adjustbox}{width=14cm,center}

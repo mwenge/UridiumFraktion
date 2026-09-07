@@ -66,9 +66,9 @@ This is an example of what the result looks like. The positioning is random, so 
 \end{figure}
 \vspace{-0.4cm}
 
-In the routine above it is the subroutine \icode{WriteARowOfStars} that is doing this heavy lifting, so that is where we need
+In the routine above it is the subroutine \fcode{WriteARowOfStars} that is doing this heavy lifting, so that is where we need
 to look to get an idea of how the distribution of the stars on a line is achieved in practice. What we find is that
-for each character in the line we pluck a value from a pool of random values stored in the \icode{randomData} array. If the value
+for each character in the line we pluck a value from a pool of random values stored in the \fcode{randomData} array. If the value
 we retrieve is less than 240 (\icode{\$F0}) we draw a blank space. If it is less than 248 (\icode{\$F8}) we draw a
 small star (\icode{\$42}). Otherwise we draw a big star (\icode{\$43}).  
 
@@ -104,7 +104,7 @@ the randomness inherent to the procedure means that there will be even be some s
 
 This is not what we observe in most cases though - the odds mean that for the most part we will almost always get somewhere between two and
 four stars on each row. We can see this when we proceed to the second part of our starfield generation procedure. Here we draw another two rows
-of stars at the top of the screen by adjusting the our starting point in \icode{ramLoPtr} and \icode{ramHiPtr}:
+of stars at the top of the screen by adjusting the our starting point in \fcode{ramLoPtr} and \fcode{ramHiPtr}:
 
 \begin{lstlisting}
   ; Make ramLoPtr/ramHiPtr refer to the bottom line of the screen.
@@ -133,8 +133,8 @@ Our third and final step is to come up with a general background of stars that w
 in the dreadnought as we travel across it. To do that we will pre-populate a list of 16 randomly distributed large
 and small stars. When the time comes to display these background stars we will go through the list and determine
 which of them are visible and can be displayed. In the routine on the opposite page we generate this list and store
-its information in 3 separate arrays. The first two arrays are \icode{starDataLoPtrArray} and \icode{starDataHiPtrArray}.
-Together these give us the location of each star on the screen. The third array is \icode{starsBehindDreadnought}. This
+its information in 3 separate arrays. The first two arrays are \fcode{starDataLoPtrArray} and \fcode{starDataHiPtrArray}.
+Together these give us the location of each star on the screen. The third array is \fcode{starsBehindDreadnought}. This
 tells us whether each star is large or small. Two examples of the kind of distribution this routine gives are illustrated below.
 
 \begin{figure}[H]
@@ -240,7 +240,7 @@ SkipStar
 \end{figure}
 \vspace{-0.4cm}
 
-There is one final twist in \icode{AddStarsBehindDreadnought}. As the dreadnought scrolls
+There is one final twist in \fcode{AddStarsBehindDreadnought}. As the dreadnought scrolls
 across the screen, one pixel at a time, we will end up with a very unfortunate artefact if
 we don't take some remedial action. The sequence below gives you an idea of the problem. As the
 segment of the surface in the diagram below moves to the right one pixel at a time, the star moves along with it. 
@@ -319,7 +319,7 @@ words, it will always appear to stay in a fixed position while the surface above
 \vspace{-0.4cm}
 
 Armed with this idea we can create an array of the required values for all eight possible scroll values, which we will call
-\icode{parallaxOffsetsForStars}.
+\fcode{parallaxOffsetsForStars}.
 \begin{lstlisting}
 parallaxOffsetsForStars .BYTE $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F
 \end{lstlisting}
@@ -345,11 +345,11 @@ With this in hand, all we need is the number of pixels that the C64's hardware w
 We can then use that number to select a value from this array and write it to the character definition. Notice that the array
 is designed in such a way that the number of pixels to scroll will select the appropriate update to
 the star. For example, if we are scrolling by five pixels, using \icode{5} as our index
-into \icode{parallaxOffsetsForStars} will pick an update for the star that will offset it five pixels to 
+into \fcode{parallaxOffsetsForStars} will pick an update for the star that will offset it five pixels to 
 the left.
 
 The code below performs this relatively straightforward task, updating the byte in the character definition to move the position of the star according to the
-value in \icode{pixelsToScroll}. (We will see how the value in \icode{pixelsToScroll} is calculated in the next chapter).
+value in \fcode{pixelsToScroll}. (We will see how the value in \fcode{pixelsToScroll} is calculated in the next chapter).
 \begin{lstlisting}
   LDX pixelsToScroll            ; Load pixels to scroll to X.
   LDA parallaxOffsetsForStars,X ; Use it to select our value. 
@@ -359,7 +359,7 @@ value in \icode{pixelsToScroll}. (We will see how the value in \icode{pixelsToSc
 This will have the desired effect for the small star: moving it to the left the desired number of pixels
 before it is ultimately moved back into its 'fixed' position after scrolling. Notice that if the number of
 pixels to scroll is 'zero', i.e. we are not performing any pixel-grained scrolling at all, we will select the first
-element in the \icode{pixelsToScroll} array, which is the default, desired position of the star on the extreme
+element in the \fcode{pixelsToScroll} array, which is the default, desired position of the star on the extreme
 right of the character boundary.
 
 To perform the same effect for the larger star it is just a question of applying the same updates at the appropriate positions in the definition.
