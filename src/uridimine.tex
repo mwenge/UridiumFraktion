@@ -156,12 +156,18 @@ and control is now passed to \fcode{MineSeeksManta}, which will shepherd it towa
 run or hide.
 
 As we would expect, \fcode{MineSeeksManta} is preoccupied completely with homing in on the player and figuring out
-whether we have hit them yet. Most of this work is delegated out to the routine \fcode{UpdateMineVelocity}, which does
+whether we have hit them yet.
+A subtle, but vital, check is whether the manta is at the same altitude as the bullet.
+The offset used for the manta's shadow (\fcode{mantaShadowOffset}) is used as a proxy to determine this. 
+
+Much of the other work is delegated out to the routine \fcode{UpdateMineVelocity}, which does
 the difficult (and complex) part of working out how to adjust the uridimine's speed and direction to improve its chances
-of detonating next to the manta. It also has to check if the uridimine has run out of time yet - the allotted time
+of detonating next to the manta.
+It also has to check if the uridimine has run out of time yet - the allotted time
 for the mine is stored in \fcode{movementDuration}. Once it has run out it is time to call \fcode{MineExpired} and
 put this failed uridimine to bed.
 
+\vspace{-0.2cm}
 \begin{minipage}[c]{0.30\linewidth}
 	\vspace{0.0cm}
 	\begin{figure}[H]
@@ -181,16 +187,16 @@ MineSeeksManta
   SBC #$01                   ; .. by subtracting 1.
   STA movementDuration,Y     ; If we've reached zero..
   BEQ MineExpired            ; .. the mine has expired.
-
   JSR DetectHittingManta     ; Have we hit the manta?
   BCC DetectLeavingScreen    ; No, check if left screen.
+  LDA mantaShadowOffset      ; Check player altitude.. 
+  CMP #$14                   ; Same as the uridimine?
   INC hasMantaBeenHit        ; Yes, flag manta as hit.
   JMP DetectLeavingScreen    ; Done for now.
-
 MineExpired
   LDA #$14                   ; Set sprite to 'explode'
   STA currentSpriteValue     ; Store it.
-  LDA #$06                   ; AnimateUridimineExplosion
+  LDA #$06                   ; AnimateEnemyExplosion
   STA indexToEnemyUpdatePtrArray,Y
   JMP DetectLeavingScreen    ; Done for now.
 \end{lstlisting}
@@ -205,7 +211,7 @@ MineExpired
 An expired uridimine ends where it began. We replace the active sprite with \icode{\$14} - marking the 
 beginning of its explosive finale. This sequence is the exact reverse of the one that gave birth to it.
 To manage this sequence we hand control to the final routine responsible for managing the uridimine, 
-\fcode{AnimateUridimineExplosion}.
+\fcode{AnimateEnemyExplosion}.
 
 \begin{figure}[H]
   \centering
@@ -213,6 +219,7 @@ To manage this sequence we hand control to the final routine responsible for man
     \includegraphics{src/uridimine/level9_uridimine_explodes_sequence.png}%
   \end{adjustbox}
 \end{figure}
+\vspace{-0.2cm}
 
 This routine doesn't have much to do other than run the animation to completion. Notice that
 even in death, the uridimine will continue to follow the manta, oblivious to its own fate.
@@ -234,7 +241,7 @@ star shape.
 \end{minipage}
 \begin{minipage}[c]{0.68\linewidth}
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
-AnimateUridimineExplosion
+AnimateEnemyExplosion
   JSR FollowMantaOnX      ; Follow Manta along X axis.
   LDA frameRate           ; Check the frame rate.
   AND #$01                ; Make it between 0 and 1.
@@ -265,14 +272,13 @@ turn through the \fcode{EnemyUpdateLoop}, the high and low bytes that point to t
 routine are loaded from \fcode{enemyUpdatePtrArray} and written to the two bytes at \fcode{EnemyUpdateRoutine}.
 This means that when it comes time to run the \fcode{JSR} statement, it will run whatever routine those two
 bytes now point to. In the case of the uridimine this evolved over time from \fcode{AnimateMineCreation}, to
-\fcode{MineSeeksManta}, to \fcode{AnimateUridimineExplosion}.
+\fcode{MineSeeksManta}, to \fcode{AnimateEnemyExplosion}.
 
 This is achieved by making \fcode{functionLoPtr} point to the first byte and \fcode{functionHiPtr} point to the
 second. When we read from \fcode{enemyUpdatePtrArray} and write to \fcode{functionLoPtr} and \fcode{functionHiPtr}, 
 we are mutating the code of the routine itself, altering its byte values to reference the routine we are interested
 in running.
 
-\clearpage
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
 UpdateEnemies
   LDA #10                           ; Store 10 in A.
