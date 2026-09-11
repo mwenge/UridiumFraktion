@@ -12,7 +12,7 @@ actually work, down to the level of how they are implemented in the 6502
 assembler source code.
 
 I tried to keep it light and digestible so the book consists of lots of little
-chapters, each one presenting a hopefully-tasty morse combining the code, data,
+chapters, each one presenting a hopefully-tasty morsel covering the code, data,
 and graphics that underlie the game.
 
 You can [download and read the book here](https://github.com/mwenge/UridiumFraktion/releases/download/v0.01/UridiumFraktion_release_high_quality.pdf). A dual-page view in your PDF reader is recommended to aid viewing code and commentary side-by-side.
