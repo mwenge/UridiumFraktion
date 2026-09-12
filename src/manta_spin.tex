@@ -156,8 +156,8 @@ But this is not a wrinkle the animation needs to worry about. All it needs to do
 is loop across the sprites that constitute the full sequence. It is indifferent to the
 fact that the first frame in RAM is not a manta sitting flush to our point of view.
 
-Let's take a look at how it is implemented in the routine responsible
-for animating the spinning manta. It's thankfully very compact and easy to digest.
+Let's take a look at how the animation is implemented in the routine responsible
+for spinning the manta. It's thankfully very compact and easy to digest.
 We would expect it to iterate over the sprites from \fcode{MANTA\_0} to \fcode{MANTA\_15}, which is 
 exactly what it does - as we noted, all that matters to it is that the sprites are ordered
 contiguously in RAM. Selecting the next sprite for preparation (\fcode{GetCurrentSprite})
