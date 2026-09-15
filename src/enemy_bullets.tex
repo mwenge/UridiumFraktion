@@ -112,12 +112,12 @@ FireEnemyBullet
 Notice how \fcode{FireEnemyBullet} has to be careful about keeping the sprite value for the enemy
 that fired the bullet on file. It does this by stashing the enemy's \fcode{currentSpriteValue} on the
 stack (\fcode{PHA}) and then, once the bullet has been set up, restoring it to \fcode{current\-Sprite\-Value}
-again with \fcode{PLA}. This \fcode{PHA}/fcode{PLA} combination is an assembly-language pattern for stashing
+again with \fcode{PLA}. This \fcode{PHA}/\fcode{PLA} combination is an assembly-language pattern for stashing
 away the current value of the \icode{A} register when we need to use the \icode{A} register for something else.
 
 Moving on, \fcode{AnimateEnemyBullet} manages the active life of the bullet as it travels horizontally
 across the screen. By design, it will travel in the same direction as the enemy that fired it.
-\fcode{AnimateEnemyBullet} will also detect collision with the player's manta, but like the uridimine: only
+\fcode{AnimateEnemyBullet} will also detect collision with the player's manta, but like the uridimine, only
 if the manta is at cruising altitude. This check is cleverly performed by using the position of the
 manta's shadow - if the offset for the shadow is greater than 20 pixels then the player has succesfully
 avoided collision by maneuvering to a higher altitude.
