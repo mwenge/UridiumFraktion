@@ -564,14 +564,14 @@ boxsep=0pt,left=2pt,right=2pt,top=2pt,bottom=.5pt}
 
 \pagestyle{empty} 
 
+% Customize the table of contents
 \begingroup
-\pagestyle{empty} 
-\let\cleardoublepage\clearpage
-\renewcommand*{\contentsname}{CON/TENTS}
-
-\renewcommand{\cfttoctitlefont}{\eurostilefont\Huge}
-
-{\eurostilefont\footnotesize\tableofcontents}
+  \pagestyle{empty} 
+  \let\cleardoublepage\clearpage
+  \setlength{\cftbeforechapskip}{9pt}
+  \renewcommand*{\contentsname}{CON/TENTS}
+  \renewcommand{\cfttoctitlefont}{\eurostilefont\Huge}
+  {\eurostilefont\footnotesize\tableofcontents}
 \endgroup
 
 % Make page number appear on botton right                               
@@ -606,6 +606,7 @@ boxsep=0pt,left=2pt,right=2pt,top=2pt,bottom=.5pt}
 \subfile{src/letters} 
 \subfile{src/logo} 
 \subfile{src/scroll_title} 
+\subfile{src/source_map} 
 
 %\subfile{src/sounds}  % ??
 %\subfile{src/music}  % ??
